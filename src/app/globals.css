@@ -1,12 +1,13 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 :root {
   --background: #ffffff;
   --foreground: #171717;
-  --main-green: #1BAA75;
-  --dark-blue: #24334B;
+  --main-green: #1baa75;
+  --dark-blue: #24334b;
   --pure-white: #fff;
-  --blue-light: #3F5984;
+  --blue-light: #3f5984;
+  --red: #eb5757;
 }
 
 @theme inline {
@@ -17,5 +18,5 @@
 }
 
 body {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-montserrat);
 }

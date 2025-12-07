@@ -14,6 +14,7 @@ type TPropsInput = {
 
 type TPropsDropdown = {
   label?: string;
+  name?: string;
   options: string[];
   errors?: string;
   searchable?: boolean;

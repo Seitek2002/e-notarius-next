@@ -102,6 +102,7 @@ const CitizenForm = () => {
           }
         })}
         <Dropdown
+          name='region'
           label='Область'
           value={region}
           onChange={(newValue) => setRegion(newValue)}

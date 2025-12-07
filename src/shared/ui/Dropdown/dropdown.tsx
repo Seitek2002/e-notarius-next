@@ -15,36 +15,37 @@ const Dropdown: FC<TPropsDropdown> = ({
   options,
   value,
   onChange,
+  name,
 }) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [filteredOptions, setFilteredOptions] = useState(options);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
+  const [isOpen, setIsOpen] = useState(false);
+  const [inputValue, setInputValue] = useState<string>(value ?? '');
+  const [filtered, setFiltered] = useState(options);
   const [highlightIndex, setHighlightIndex] = useState<number>(-1);
 
   function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
-    if (!isOpen) {
-      setIsOpen(true);
-    }
+    if (!isOpen) setIsOpen(true);
 
     if (e.key === 'ArrowDown') {
       e.preventDefault();
-      setHighlightIndex((prev) =>
-        Math.min(prev + 1, filteredOptions.length - 1)
-      );
+      setHighlightIndex((prev) => Math.min(prev + 1, filtered.length - 1));
+      return;
     }
 
     if (e.key === 'ArrowUp') {
       e.preventDefault();
       setHighlightIndex((prev) => Math.max(prev - 1, 0));
+      return;
     }
 
     if (e.key === 'Enter') {
       e.preventDefault();
       if (highlightIndex >= 0) {
-        onChange(filteredOptions[highlightIndex]);
+        onChange(filtered[highlightIndex]);
         setIsOpen(false);
       }
+      return;
     }
 
     if (e.key === 'Escape') {
@@ -52,24 +53,44 @@ const Dropdown: FC<TPropsDropdown> = ({
     }
   }
 
-  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    const filteredBySearchOptions = options.filter((option) =>
-      option.toLowerCase().includes(value.toLowerCase())
-    );
+  function handleSearch(e: React.ChangeEvent<HTMLInputElement>) {
+    const v = e.target.value;
+    setInputValue(v);
 
-    console.log(filteredBySearchOptions);
-    setFilteredOptions(filteredBySearchOptions);
-  };
+    const filt = options.filter((o) =>
+      o.toLowerCase().includes(v.toLowerCase())
+    );
+    setFiltered(filt);
+
+    setHighlightIndex(filt.length > 0 ? 0 : -1);
+  }
+
+  function handleOptionClick(option: string) {
+    onChange(option);
+    setInputValue(option);
+    setIsOpen(false);
+  }
 
   useEffect(() => {
-    if (isOpen && value) {
-      const index = filteredOptions.indexOf(value);
-      setHighlightIndex(index);
-    } else if (!isOpen) {
+    if (!isOpen) {
       setHighlightIndex(-1);
     }
-  }, [isOpen, value, filteredOptions]);
+
+    const newValue = value || '';
+    if (inputValue !== newValue) {
+      setInputValue(newValue);
+    }
+
+    if (filtered !== options) {
+      setFiltered(options);
+    }
+
+    const idx = value ? options.indexOf(value) : -1;
+    if (highlightIndex !== idx) {
+      setHighlightIndex(idx);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isOpen]);
 
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
@@ -90,16 +111,31 @@ const Dropdown: FC<TPropsDropdown> = ({
 
   return (
     <div className='dropdown' ref={dropdownRef}>
-      <span>{label}</span>
-      <div className='dropdown-top' onClick={() => setIsOpen(true)}>
+      {label && <span>{label}</span>}
+      <div
+        className='dropdown-top'
+        role='button'
+        tabIndex={0}
+        onClick={() => setIsOpen(!isOpen)}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            setIsOpen((s) => !s);
+          }
+        }}
+      >
         {searchable ? (
           <>
             <Image src={dropdownSearch} alt='' />
             <input
               type='text'
-              value={value || ''}
-              onKeyDown={handleKeyDown}
+              value={inputValue || ''}
+              onKeyDown={(e) => {
+                e.stopPropagation();
+                handleKeyDown(e);
+              }}
               onChange={(e) => handleSearch(e)}
+              placeholder={value ? '' : 'Поиск или выберите'}
             />
           </>
         ) : (
@@ -111,15 +147,18 @@ const Dropdown: FC<TPropsDropdown> = ({
           alt='dropdown-arrow'
         />
       </div>
+
+      {/* Hidden input для отправки формы */}
+      {name && <input type='hidden' name={name} value={value ?? ''} />}
+
       <ul className={`dropdown-list ${isOpen ? 'active' : ''}`}>
-        {filteredOptions.map((option, i) => (
+        {filtered.length === 0 && <li className='empty'>Ничего не найдено</li>}
+        {filtered.map((option, i) => (
           <li
             key={option}
             className={highlightIndex === i ? 'active' : ''}
-            onClick={() => {
-              onChange(option); // ← Логика выбора
-              setIsOpen(false);
-            }}
+            onMouseEnter={() => setHighlightIndex(i)}
+            onClick={() => handleOptionClick(option)}
           >
             {option}
           </li>

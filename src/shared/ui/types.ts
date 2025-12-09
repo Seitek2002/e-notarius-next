@@ -8,6 +8,7 @@ type TPropsRadio = {
 type TPropsInput = {
   label: string;
   name: string;
+  type?: 'text' | 'password' | 'email';
   errors?: string;
   placeholder?: string;
 };

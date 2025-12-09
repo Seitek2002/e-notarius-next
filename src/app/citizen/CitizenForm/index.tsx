@@ -87,7 +87,7 @@ const CitizenForm = () => {
                 key={field.name}
                 label={field.label}
                 name={field.name}
-                errors={errors[field.name]?.[0]}
+                error={errors[field.name]?.[0]}
               />
             );
           } else if (field.type === 'radio') {

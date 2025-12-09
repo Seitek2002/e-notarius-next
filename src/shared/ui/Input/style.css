@@ -78,6 +78,63 @@
   box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.4);
 }
 
+.input-checkbox {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  cursor: pointer;
+  padding: 4px 0;
+}
+
+.input-checkbox input {
+  -webkit-appearance: none; /* отключаем системный стиль */
+  appearance: none;
+  width: 13px;
+  height: 13px;
+  border: 1px solid #10b981;
+  border-radius: 4px;
+  position: relative;
+  transition: border 0.2s, background-color 0.2s;
+  cursor: pointer;
+}
+
+.input-checkbox input:checked {
+  background-color: #10b981; /* цвет заполненного кружка */
+  border-color: #10b981;
+}
+
+.input-checkbox input:checked::after {
+  content: '';
+  display: block;
+  width: 10px;
+  height: 10px;
+  background-color: var(--main-green);
+  background-image: url("data:image/svg+xml,%3Csvg width='12' height='12' viewBox='0 0 12 12' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M9.99694 2.71779C10.1528 2.85417 10.1686 3.09108 10.0322 3.24694L4.78222 9.24694C4.71387 9.32505 4.61621 9.37134 4.51248 9.3748C4.40875 9.37825 4.30822 9.33856 4.23483 9.26517L1.98483 7.01517C1.83839 6.86872 1.83839 6.63129 1.98483 6.48484C2.13128 6.33839 2.36872 6.33839 2.51517 6.48484L4.48173 8.45141L9.46778 2.75307C9.60416 2.5972 9.84107 2.58141 9.99694 2.71779Z' fill='white'/%3E%3C/svg%3E");
+  background-size: cover;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+  scale: 0;
+  opacity: 0;
+  transition: scale translate 0.2s ease, background 0.2s ease;
+}
+
+.input-checkbox input:checked:checked::after {
+  scale: 1;
+  opacity: 1;
+}
+
+.input-checkbox input:hover {
+  border-color: var(--main-green);
+  box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.2);
+}
+
+.input-checkbox input:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.4);
+}
+
 /*================ input error styles ================*/
 
 .input-text.error {
@@ -87,6 +144,12 @@
 }
 
 .input-radio.error {
+  input {
+    border: 1px solid var(--red);
+  }
+}
+
+.input-checkbox.error {
   input {
     border: 1px solid var(--red);
   }

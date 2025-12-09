@@ -3,7 +3,7 @@
 import { FormEvent, useState } from 'react';
 import * as z from 'zod';
 
-import { Input, Radio } from '@/shared/ui/Input';
+import { Checkbox, Input, Radio } from '@/shared/ui/Input';
 import Dropdown from '@/shared/ui/Dropdown/dropdown';
 
 const citizenSchema = z.object({
@@ -115,6 +115,7 @@ const CitizenForm = () => {
           searchable
           required
         />
+        <Checkbox label='Иностранное лицо' name='foreigner' />
         <button type='submit'>Отправить</button>
       </form>
     </div>

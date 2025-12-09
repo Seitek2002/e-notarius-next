@@ -2,6 +2,8 @@
 
 import Image from 'next/image';
 import { FC, useEffect, useRef, useState } from 'react';
+import clsx from 'clsx';
+
 import { TPropsDropdown } from '../types';
 
 import dropdownArrow from '@/assets/icons/dropdown-arrow.svg';
@@ -16,6 +18,7 @@ const Dropdown: FC<TPropsDropdown> = ({
   value,
   onChange,
   name,
+  required,
 }) => {
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -81,9 +84,7 @@ const Dropdown: FC<TPropsDropdown> = ({
       setInputValue(newValue);
     }
 
-    if (filtered !== options) {
-      setFiltered(options);
-    }
+    setFiltered(options);
 
     const idx = value ? options.indexOf(value) : -1;
     if (highlightIndex !== idx) {
@@ -111,7 +112,11 @@ const Dropdown: FC<TPropsDropdown> = ({
 
   return (
     <div className='dropdown' ref={dropdownRef}>
-      {label && <span>{label}</span>}
+      {label && (
+        <span>
+          {label} {required && <sup style={{ color: 'red' }}>*</sup>}
+        </span>
+      )}
       <div
         className='dropdown-top'
         role='button'
@@ -151,7 +156,7 @@ const Dropdown: FC<TPropsDropdown> = ({
       {/* Hidden input для отправки формы */}
       {name && <input type='hidden' name={name} value={value ?? ''} />}
 
-      <ul className={`dropdown-list ${isOpen ? 'active' : ''}`}>
+      <ul className={clsx('dropdown-list', { active: isOpen })}>
         {filtered.length === 0 && <li className='empty'>Ничего не найдено</li>}
         {filtered.map((option, i) => (
           <li

@@ -14,6 +14,8 @@ const citizenSchema = z.object({
     .string()
     .min(10, 'ИНН должен состоять из 14 цифр')
     .regex(/^\d+$/, 'ИНН должен содержать только цифры'),
+
+  region: z.string().min(1, 'Выберите область'),
 });
 
 const fields = [
@@ -59,10 +61,13 @@ const CitizenForm = () => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
 
-    const rawData = fields.reduce((acc, field) => {
-      acc[field.name] = formData.get(field.name);
-      return acc;
-    }, {} as Record<string, FormDataEntryValue | null>);
+    const rawData = {
+      ...fields.reduce((acc, field) => {
+        acc[field.name] = formData.get(field.name);
+        return acc;
+      }, {} as Record<string, FormDataEntryValue | null>),
+      region,
+    };
 
     const res = citizenSchema.safeParse(rawData);
 
@@ -108,6 +113,7 @@ const CitizenForm = () => {
           onChange={(newValue) => setRegion(newValue)}
           options={['Чуй', 'Нарын', 'Талас', 'Баткен', 'Джалал-Абад', 'Ош']}
           searchable
+          required
         />
         <button type='submit'>Отправить</button>
       </form>

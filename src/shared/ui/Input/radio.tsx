@@ -1,20 +1,17 @@
 import { FC } from 'react';
+import clsx from 'clsx';
 
 import { TPropsRadio } from '../types';
 
 import './style.css';
 
-const Radio: FC<TPropsRadio> = ({ label, name, value, errors }) => {
-  const id = `${name}-${value}`;
+const Radio: FC<TPropsRadio> = ({ label, error, ...props }) => {
+  const id = `${props.name}-${props.value}`;
 
   return (
-    <label
-      className={errors ? 'input-radio error' : 'input-radio'}
-      htmlFor={id}
-    >
-      <input type='radio' id={id} name={name} value={value} />
+    <label className={clsx('input-radio', { error })} htmlFor={id}>
+      <input type='radio' id={id} {...props} />
       <span>{label}</span>
-      {errors && <p className='error'>{errors}</p>}
     </label>
   );
 };

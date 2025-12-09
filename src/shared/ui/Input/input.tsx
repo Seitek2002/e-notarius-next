@@ -1,23 +1,17 @@
 import { FC } from 'react';
+import clsx from 'clsx';
 
 import { TPropsInput } from '../types';
 
 import './style.css';
 
-const Input: FC<TPropsInput> = ({
-  label,
-  name,
-  error,
-  placeholder,
-  type = 'text',
-}) => {
+const Input: FC<TPropsInput> = ({ label, error, type = 'text', ...props }) => {
+  const id = props.id ?? props.name;
+
   return (
-    <label
-      className={error ? 'input-text error' : 'input-text'}
-      htmlFor={name}
-    >
-      <span>{label}</span>
-      <input type={type} id={name} name={name} placeholder={placeholder} />
+    <label className={clsx('input-text', { error })} htmlFor={id}>
+      {label && <span>{label}</span>}
+      <input type={type} id={id} {...props} />
       {error && <p className='error'>{error}</p>}
     </label>
   );

@@ -1,23 +1,21 @@
-type TPropsRadio = {
-  label: string;
-  name: string;
-  errors?: string;
-  value?: string;
+import { InputHTMLAttributes } from 'react';
+
+type BaseFieldProps = {
+  label?: string;
+  error?: string;
 };
 
-type TPropsInput = {
+type TPropsRadio = {
   label: string;
-  name: string;
-  type?: 'text' | 'password' | 'email' | 'tel' | 'number';
-  error?: string;
-  placeholder?: string;
-};
+} & BaseFieldProps &
+  InputHTMLAttributes<HTMLInputElement>;
+
+type TPropsInput = BaseFieldProps & InputHTMLAttributes<HTMLInputElement>;
 
 type TPropsDropdown = {
   label?: string;
   name?: string;
   options: string[];
-  errors?: string;
   searchable?: boolean;
   value: string | null;
   onChange: (value: string) => void;

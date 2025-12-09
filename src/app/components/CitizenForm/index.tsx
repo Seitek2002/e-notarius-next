@@ -3,7 +3,7 @@
 import { FormEvent, useState } from 'react';
 import * as z from 'zod';
 
-import { Checkbox, Input, Radio } from '@/shared/ui/Input';
+import { Checkbox, Input, InputFile, Radio } from '@/shared/ui/Input';
 import Dropdown from '@/shared/ui/Dropdown/dropdown';
 
 const citizenSchema = z.object({
@@ -83,7 +83,7 @@ const CitizenForm = () => {
   };
 
   return (
-    <div>
+    <div className='px-10'>
       <form onSubmit={(e) => handleSubmit(e)}>
         {fields.map((field) => {
           if (field.type === 'input') {
@@ -116,6 +116,7 @@ const CitizenForm = () => {
           required
         />
         <Checkbox label='Иностранное лицо' name='foreigner' />
+        <InputFile />
         <button type='submit'>Отправить</button>
       </form>
     </div>

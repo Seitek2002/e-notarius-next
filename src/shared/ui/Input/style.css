@@ -5,7 +5,7 @@
   font-size: 14px;
 
   span {
-    color: var(--blue-light);
+    color: var(----light-blue);
     font-weight: 500;
     margin-bottom: 5px;
   }
@@ -13,7 +13,7 @@
   input {
     border: 1px solid var(--main-green);
     padding: 12px 10px;
-    color: var(--blue-light);
+    color: var(----light-blue);
     outline: none;
   }
 
@@ -135,6 +135,30 @@
   box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.4);
 }
 
+.input-file {
+  border: 1px solid var(--main-green);
+  cursor: pointer;
+  max-width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--light-blue);
+
+  span {
+    padding-left: 15px;
+  }
+
+  input {
+    display: none;
+  }
+
+  .input-file__icon {
+    padding: 15px;
+    box-sizing: border-box;
+    background: var(--main-green);
+  }
+}
+
 /*================ input error styles ================*/
 
 .input-text.error {
@@ -153,4 +177,8 @@
   input {
     border: 1px solid var(--red);
   }
+}
+
+.input-file.error {
+  border: 1px solid var(--red);
 }

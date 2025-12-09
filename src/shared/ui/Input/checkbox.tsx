@@ -3,8 +3,6 @@ import clsx from 'clsx';
 
 import { TPropsCheckbox } from '../types';
 
-import checkBoxIcon from '@/assets/icons/check-icon.svg';
-
 import './style.css';
 
 const Checkbox: FC<TPropsCheckbox> = ({ label, error, ...props }) => {

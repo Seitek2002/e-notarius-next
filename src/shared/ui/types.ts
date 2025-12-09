@@ -5,6 +5,8 @@ type BaseFieldProps = {
   error?: string;
 };
 
+type TPropsInputFile = BaseFieldProps & InputHTMLAttributes<HTMLInputElement>;
+
 type TPropsCheckbox = {
   label: string;
 } & BaseFieldProps &
@@ -27,4 +29,10 @@ type TPropsDropdown = {
   onChange: (value: string) => void;
 };
 
-export type { TPropsRadio, TPropsInput, TPropsDropdown, TPropsCheckbox };
+export type {
+  TPropsRadio,
+  TPropsInput,
+  TPropsDropdown,
+  TPropsCheckbox,
+  TPropsInputFile,
+};

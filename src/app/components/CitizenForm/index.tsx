@@ -3,8 +3,9 @@
 import { FormEvent, useState } from 'react';
 import * as z from 'zod';
 
-import { Checkbox, Input, InputFile, Radio } from '@/shared/ui/Input';
+import { Checkbox, Input, Radio } from '@/shared/ui/Input';
 import Dropdown from '@/shared/ui/Dropdown/dropdown';
+import { MultiFileUpload } from '@/features/application-wizard/ui';
 
 const citizenSchema = z.object({
   lastName: z.string().min(1, 'Введите фамилию'),
@@ -16,6 +17,7 @@ const citizenSchema = z.object({
     .regex(/^\d+$/, 'ИНН должен содержать только цифры'),
 
   region: z.string().min(1, 'Выберите область'),
+  files: z.any().optional()
 });
 
 const fields = [
@@ -61,12 +63,17 @@ const CitizenForm = () => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
 
+    const uploadedFiles = Array.from(formData.keys())
+      .filter((k) => k.startsWith('files['))
+      .map((k) => formData.get(k));
+
     const rawData = {
       ...fields.reduce((acc, field) => {
         acc[field.name] = formData.get(field.name);
         return acc;
       }, {} as Record<string, FormDataEntryValue | null>),
       region,
+      files: uploadedFiles,
     };
 
     const res = citizenSchema.safeParse(rawData);
@@ -116,7 +123,7 @@ const CitizenForm = () => {
           required
         />
         <Checkbox label='Иностранное лицо' name='foreigner' />
-        <InputFile />
+        <MultiFileUpload />
         <button type='submit'>Отправить</button>
       </form>
     </div>

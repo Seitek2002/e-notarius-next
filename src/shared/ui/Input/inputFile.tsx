@@ -8,7 +8,7 @@ import clipIcon from '@/assets/icons/clip-icon.svg';
 import './style.css';
 
 const inputFile: FC<TPropsInputFile> = ({
-  label = 'Выберите файл',
+  label,
   error,
   ...props
 }) => {
@@ -16,7 +16,7 @@ const inputFile: FC<TPropsInputFile> = ({
 
   return (
     <label className='input-file' htmlFor={id}>
-      <span>{label}</span>
+      <span>{label || 'Выберите файл'}</span>
       <input type='file' id={id} {...props} />
       <div className='input-file__icon'>
         <Image src={clipIcon} alt='clip-icon' />

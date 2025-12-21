@@ -1,0 +1,55 @@
+.button {
+  background: var(--main-green);
+  color: var(--pure-white);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 44px;
+  padding: 0 24px;
+  min-width: 240px;
+  transition: box-shadow 0.3s ease;
+  font-size: 16px;
+  font-weight: 600;
+  position: relative;
+
+  &:hover {
+    box-shadow: 0 10px 20px 0px #99dbaf;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .content {
+    display: inline-flex;
+    gap: 10px;
+  }
+
+  .content.hidden {
+    visibility: hidden;
+  }
+
+  .spinner {
+    width: 24px;
+    height: 24px;
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    border-top-color: white;
+    border-radius: 50%;
+    animation: spin 0.6s linear infinite;
+    position: absolute;
+    inset: 0;
+    margin: auto;
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+
+  from {
+    transform: rotate(0deg);
+  }
+}

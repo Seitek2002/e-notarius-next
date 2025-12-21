@@ -1,4 +1,4 @@
-import { InputHTMLAttributes } from 'react';
+import { ButtonHTMLAttributes, InputHTMLAttributes } from 'react';
 
 type BaseFieldProps = {
   label?: string;
@@ -29,10 +29,13 @@ type TPropsDropdown = {
   onChange: (value: string) => void;
 };
 
+type TButton = { loading?: boolean } & ButtonHTMLAttributes<HTMLButtonElement>;
+
 export type {
   TPropsRadio,
   TPropsInput,
   TPropsDropdown,
   TPropsCheckbox,
   TPropsInputFile,
+  TButton,
 };

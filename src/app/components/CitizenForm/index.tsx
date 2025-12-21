@@ -1,11 +1,15 @@
 'use client';
 
 import { FormEvent, useState } from 'react';
+import Image from 'next/image';
 import * as z from 'zod';
 
 import { Checkbox, Input, Radio } from '@/shared/ui/Input';
 import Dropdown from '@/shared/ui/Dropdown/dropdown';
 import { MultiFileUpload } from '@/features/application-wizard/ui';
+import Button from '@/shared/ui/Button/button';
+
+import arrow from '@assets/icons/arrow.svg';
 
 const citizenSchema = z.object({
   lastName: z.string().min(1, 'Введите фамилию'),
@@ -124,7 +128,11 @@ const CitizenForm = () => {
         />
         <Checkbox label='Иностранное лицо' name='foreigner' />
         <MultiFileUpload />
-        <button type='submit'>Отправить</button>
+        {/* <button type='submit'>Отправить</button> */}
+        <Button loading={false}>
+          <span>Подтвердить</span>
+          <Image src={arrow} alt='arrow' />
+        </Button>
       </form>
     </div>
   );

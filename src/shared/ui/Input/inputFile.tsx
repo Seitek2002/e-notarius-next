@@ -3,7 +3,7 @@ import Image from 'next/image';
 
 import { TPropsInputFile } from '../types';
 
-import clipIcon from '@assets/icons/clip-icon.svg';
+import clipIcon from '@assets/icons/files/clip-icon.svg';
 
 import './style.css';
 

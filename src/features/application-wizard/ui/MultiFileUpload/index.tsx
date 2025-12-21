@@ -3,9 +3,9 @@ import Image from 'next/image';
 
 import { InputFile } from '@/shared/ui/Input';
 
-import uploadOwnFilesIcon from '@assets/icons/upload-own-files-icon.svg';
-import minusIcon from '@assets/icons/upload-minus-icon.svg';
-import plusIcon from '@assets/icons/upload-plus-icon.svg';
+import uploadOwnFilesIcon from '@assets/icons/files/upload-own-files-icon.svg';
+import minusIcon from '@assets/icons/files/upload-minus-icon.svg';
+import plusIcon from '@assets/icons/files/upload-plus-icon.svg';
 
 import './style.css';
 

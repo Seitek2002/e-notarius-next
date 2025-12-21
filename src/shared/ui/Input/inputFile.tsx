@@ -3,15 +3,11 @@ import Image from 'next/image';
 
 import { TPropsInputFile } from '../types';
 
-import clipIcon from '@/assets/icons/clip-icon.svg';
+import clipIcon from '@assets/icons/clip-icon.svg';
 
 import './style.css';
 
-const inputFile: FC<TPropsInputFile> = ({
-  label,
-  error,
-  ...props
-}) => {
+const inputFile: FC<TPropsInputFile> = ({ label, error, ...props }) => {
   const id = props.id ?? props.name;
 
   return (

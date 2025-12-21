@@ -6,8 +6,8 @@ import clsx from 'clsx';
 
 import { TPropsDropdown } from '../types';
 
-import dropdownArrow from '@/assets/icons/dropdown-arrow.svg';
-import dropdownSearch from '@/assets/icons/dropdown-search.svg';
+import dropdownArrow from '@assets/icons/dropdown-arrow.svg';
+import dropdownSearch from '@assets/icons/dropdown-search.svg';
 
 import './style.css';
 

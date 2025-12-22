@@ -1,0 +1,43 @@
+.sidebar {
+  color: #fff;
+  background: var(--main-green);
+  width: 280px;
+  padding: 50px 0;
+  box-sizing: border-box;
+
+  .sidebar__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 40px;
+    padding: 0 20px;
+  }
+
+  .sidebar__logo {
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 16px;
+
+    a {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+  }
+
+  .sidebar__toggler {
+    background: #6fcf97;
+    padding: 10px;
+    cursor: pointer;
+  }
+
+  h2 {
+    margin-left: 25px;
+  }
+
+  .sidebar__owner {
+    font-weight: 700;
+    font-size: 18px;
+    margin-bottom: 15px;
+  }
+}

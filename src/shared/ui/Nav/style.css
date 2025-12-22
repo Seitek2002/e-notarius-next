@@ -1,0 +1,22 @@
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 12px 20px;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+
+  &.active {
+    background: var(--dark-blue);
+  }
+
+  &:hover {
+    background: var(--dark-blue);
+  }
+
+  &:active {
+    background: var(--dark-blue);
+  }
+}

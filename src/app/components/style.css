@@ -1,0 +1,38 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 0;
+
+  h2 {
+    color: var(--main-green);
+    font-weight: 600;
+    font-size: 24px;
+  }
+
+  .header__right {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    font-size: 16px;
+    color: var(--dark-blue);
+  }
+
+  .header__user {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 500;
+    cursor: pointer;
+  }
+
+  .header__notification {
+    cursor: pointer;
+  }
+
+  .header__lang {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+}

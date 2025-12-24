@@ -11,7 +11,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <div className='flex'>
       <Sidebar />
-      <div className='flex-1'>
+      <div className='flex-1 px-5 lg:px-14'>
         <header className='header'>
           <h2>Заявки</h2>
           <div className='header__right'>

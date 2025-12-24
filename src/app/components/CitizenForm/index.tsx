@@ -94,7 +94,7 @@ const CitizenForm = () => {
   };
 
   return (
-    <div className='px-10'>
+    <div>
       <form onSubmit={(e) => handleSubmit(e)}>
         {fields.map((field) => {
           if (field.type === 'input') {

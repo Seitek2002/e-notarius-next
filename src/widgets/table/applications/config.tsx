@@ -1,5 +1,5 @@
 import { Application, Column } from './model';
-import { QrButton } from '../../../shared/ui/qr-button';
+import { QrButton } from '../../../shared/ui/Table/qr-button';
 
 export const columns: Column<Application>[] = [
   {

@@ -10,9 +10,11 @@ type TProps = {
 export const TableHead: FC<TProps> = ({ columns }) => {
   return (
     <thead>
-      {columns.map((column) => (
-        <TableHeaderCell key={column.key} column={column} />
-      ))}
+      <tr>
+        {columns.map((column) => (
+          <TableHeaderCell key={column.key} column={column} />
+        ))}
+      </tr>
     </thead>
   );
 };

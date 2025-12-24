@@ -8,6 +8,7 @@ import { Checkbox, Input, Radio } from '@/shared/ui/Input';
 import Dropdown from '@/shared/ui/Dropdown/dropdown';
 import { MultiFileUpload } from '@/features/application-wizard/ui';
 import Button from '@/shared/ui/Button/button';
+import { ApplicationsTable } from '@/widgets/table/applications';
 
 import arrow from '@assets/icons/arrow.svg';
 
@@ -21,7 +22,7 @@ const citizenSchema = z.object({
     .regex(/^\d+$/, 'ИНН должен содержать только цифры'),
 
   region: z.string().min(1, 'Выберите область'),
-  files: z.any().optional()
+  files: z.any().optional(),
 });
 
 const fields = [
@@ -95,6 +96,7 @@ const CitizenForm = () => {
 
   return (
     <div>
+      <ApplicationsTable />
       <form onSubmit={(e) => handleSubmit(e)}>
         {fields.map((field) => {
           if (field.type === 'input') {

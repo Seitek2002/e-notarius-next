@@ -24,6 +24,7 @@
       "@shared/*": ["./src/shared/*"],
     }
   },
+  "baseUrl": ".",
   "include": [
     "next-env.d.ts",
     "**/*.ts",

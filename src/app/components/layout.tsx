@@ -1,5 +1,5 @@
 import Sidebar from '@/widgets/sidebar/sidebar';
-import Header from '@/widgets/sidebar/header/Header';
+import Header from '@/widgets/header/Header';
 
 import './style.css';
 

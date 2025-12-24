@@ -1,11 +1,22 @@
+import { FC } from 'react';
 import { TableCell } from './table-cell';
+import { Application, Column } from '@/widgets/table/applications/model';
 
-export const TableBody = () => {
+type TProps = {
+  columns: Column<Application>[];
+  data: Application[];
+};
+
+export const TableBody: FC<TProps> = ({ columns, data }) => {
   return (
     <tbody>
-      <TableCell />
-      <TableCell />
-      <TableCell />
+      {data.map((row) => (
+        <tr key={row.id}>
+          {columns.map((column) => (
+            <TableCell key={column.key} column={column} row={row} />
+          ))}
+        </tr>
+      ))}
     </tbody>
   );
 };

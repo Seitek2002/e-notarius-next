@@ -1,9 +1,10 @@
-import { Table } from "@/shared/ui/Table";
+import { Table } from '@/shared/ui/Table';
+import { columns, data } from '@/widgets/table/applications/config';
 
 export const ApplicationsTable = () => {
   return (
     <div>
-      <Table />
+      <Table columns={columns} data={data} />
     </div>
   );
 };

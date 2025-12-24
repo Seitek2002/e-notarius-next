@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-import NavItem from '@/shared/ui/Nav/NavItem';
+import NavItem from '@/shared/ui/Nav/nav-item';
 
 import logo from '@assets/icons/logo.svg';
 import arrow from '@assets/icons/nav/arrow.svg';

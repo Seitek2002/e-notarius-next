@@ -10,7 +10,7 @@ type TProps = {
 export const QrButton: FC<TProps> = ({ src }) => {
   return (
     <div>
-      <Image width={10} height={10} src={src && qrIcon} alt='qr-code' />
+      <Image src={src && qrIcon} alt='qr-code' />
     </div>
   );
 };

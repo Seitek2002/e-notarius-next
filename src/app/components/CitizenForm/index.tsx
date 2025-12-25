@@ -95,7 +95,7 @@ const CitizenForm = () => {
   };
 
   return (
-    <div>
+    <>
       <ApplicationsTable />
       <form onSubmit={(e) => handleSubmit(e)}>
         {fields.map((field) => {
@@ -136,7 +136,7 @@ const CitizenForm = () => {
           <Image src={arrow} alt='arrow' />
         </Button>
       </form>
-    </div>
+    </>
   );
 };
 

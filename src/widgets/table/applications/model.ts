@@ -3,7 +3,9 @@ export type Column<T> = {
   label: string;
   sortable?: boolean;
   filterable?: boolean;
-  width?: number;
+  width?: number; // фикс
+  minWidth?: number; // минимальная ширина
+  align?: 'left' | 'center' | 'right';
   render?: (value: T[keyof T], row: T) => React.ReactNode;
 };
 

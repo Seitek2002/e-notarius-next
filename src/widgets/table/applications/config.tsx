@@ -30,11 +30,13 @@ export const columns: Column<Application>[] = [
   {
     label: 'Вид документа',
     key: 'documentType',
+    minWidth: 400,
     filterable: true,
   },
   {
     label: 'Нотариус',
     key: 'notary',
+    minWidth: 200,
     sortable: true,
   },
   {

@@ -1,0 +1,25 @@
+.applications-table {
+  overflow-x: auto;
+  max-width: 100%;
+
+  table {
+    table-layout: auto;
+    width: max-content;
+    min-width: 100%;
+    border-collapse: collapse;
+
+    th {
+      padding: 24px 16px;
+    }
+
+    td {
+      padding: 24px 16px;
+    }
+
+    thead {
+      text-wrap: nowrap;
+      background: #fff;
+      border: 1px solid #ccc;
+    }
+  }
+}

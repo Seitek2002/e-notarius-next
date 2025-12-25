@@ -1,11 +1,7 @@
 import CitizenForm from './CitizenForm';
 
 const CitizenFormPage = () => {
-  return (
-    <div>
-      <CitizenForm />
-    </div>
-  );
+  return <CitizenForm />;
 };
 
 export default CitizenFormPage;

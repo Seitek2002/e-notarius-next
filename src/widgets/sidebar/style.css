@@ -2,6 +2,7 @@
   color: #fff;
   background: var(--main-green);
   width: 280px;
+  flex-shrink: 0; /* чтобы сайдбар не сплющивался */
   padding: 50px 0;
   box-sizing: border-box;
 

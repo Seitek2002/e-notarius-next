@@ -5,5 +5,15 @@ export const TableHeaderCell = ({
 }: {
   column: Column<Application>;
 }) => {
-  return <th>{column.label}</th>;
+  return (
+    <th
+      style={{
+        width: column.width,
+        minWidth: column.minWidth,
+        textAlign: column.align ?? 'left',
+      }}
+    >
+      {column.label}
+    </th>
+  );
 };

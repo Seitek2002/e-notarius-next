@@ -10,6 +10,14 @@ export const TableCell = ({
   const value = row[column.key];
 
   return (
-    <td>{column.render ? column.render(value, row) : String(value ?? '')}</td>
+    <td
+      style={{
+        width: column.width,
+        minWidth: column.minWidth,
+        textAlign: column.align ?? 'left',
+      }}
+    >
+      {column.render ? column.render(value, row) : String(value ?? '')}
+    </td>
   );
 };

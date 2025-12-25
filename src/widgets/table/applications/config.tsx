@@ -18,7 +18,7 @@ export const columns: Column<Application>[] = [
     sortable: true,
   },
   {
-    label: 'Нотраиальное действие',
+    label: 'Нотариальное действие',
     key: 'notarialAction',
     filterable: true,
   },

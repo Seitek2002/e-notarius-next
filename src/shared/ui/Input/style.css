@@ -96,6 +96,7 @@
   position: relative;
   transition: border 0.2s, background-color 0.2s;
   cursor: pointer;
+  flex-shrink: 0;
 }
 
 .input-checkbox input:checked {

@@ -20,6 +20,26 @@
       text-wrap: nowrap;
       background: #fff;
       border: 1px solid #ccc;
+
+      .table-header-cell {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        transition: 0.3s;
+
+        img {
+          transition: 0.3s;
+        }
+
+        &.clickable {
+          cursor: pointer;
+          position: relative;
+
+          &:hover > span {
+            color: var(--main-green);
+          }
+        }
+      }
     }
   }
 }

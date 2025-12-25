@@ -1,0 +1,28 @@
+.table-popover {
+  position: absolute;
+  bottom: -220px;
+  left: 0;
+  min-width: 100%;
+  box-sizing: border-box;
+  background: #fff;
+  padding: 10px 16px;
+  box-shadow: 0 10px 20px 0px #E9E9E9;
+  display: none;
+
+  &.open {
+    display: block;
+  }
+
+  .table-popover__content {
+    font-size: 14px;
+    font-weight: 400;
+    max-height: 150px;
+    overflow-y: auto;
+  }
+
+  button {
+    width: 100%;
+    padding: 12px 0;
+    color: var(--main-green);
+  }
+}

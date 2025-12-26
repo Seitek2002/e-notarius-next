@@ -1,12 +1,11 @@
 'use client';
 
 import { FC, useState } from 'react';
-// import Image from 'next/image';
+import clsx from 'clsx';
 
 import { QrPopover } from './qr-popover';
 
 import QrIcon from '@assets/icons/table/qr-icon.svg';
-import clsx from 'clsx';
 
 type TProps = {
   src: string;

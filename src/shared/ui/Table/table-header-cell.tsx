@@ -47,7 +47,9 @@ export const TableHeaderCell = ({
             style={{ transform: `rotate(${sortActive ? 180 : 0}deg)` }}
           />
         )}
-        {column.filterable && <FilterIcon />}
+        {column.filterable && (
+          <FilterIcon style={{ fill: showPopover ? '#1BAA75' : '#fff' }} />
+        )}
 
         {column.filterable && (
           <Popover isOpen={showPopover} setIsOpen={setShowPopover} />

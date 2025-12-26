@@ -54,3 +54,12 @@
     }
   }
 }
+
+.qr-icon {
+  cursor: pointer;
+
+  &.active path {
+    stroke: var(--main-green);
+  }
+}
+

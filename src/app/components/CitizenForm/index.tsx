@@ -10,7 +10,7 @@ import { MultiFileUpload } from '@/features/application-wizard/ui';
 import Button from '@/shared/ui/Button/button';
 import { ApplicationsTable } from '@/widgets/table/applications';
 
-import arrow from '@assets/icons/arrow.svg';
+import Arrow from '@assets/icons/arrow.svg';
 
 const citizenSchema = z.object({
   lastName: z.string().min(1, 'Введите фамилию'),
@@ -133,7 +133,7 @@ const CitizenForm = () => {
         {/* <button type='submit'>Отправить</button> */}
         <Button loading={false}>
           <span>Подтвердить</span>
-          <Image src={arrow} alt='arrow' />
+          <Arrow />
         </Button>
       </form>
     </>

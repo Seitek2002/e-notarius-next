@@ -1,8 +1,6 @@
-import Image from 'next/image';
-
-import defaultAvatar from '@assets/icons/header/default-avatar.svg';
-import arrowIcon from '@assets/icons/header/arrow.svg';
-import notificationIcon from '@assets/icons/header/notification.svg';
+import DefaultAvatar from '@assets/icons/header/default-avatar.svg';
+import ArrowIcon from '@assets/icons/header/arrow.svg';
+import NotificationIcon from '@assets/icons/header/notification.svg';
 
 const Header = () => {
   return (
@@ -10,21 +8,16 @@ const Header = () => {
       <h2>Заявки</h2>
       <div className='header__right'>
         <div className='header__user'>
-          <Image
-            width={44}
-            height={44}
-            src={defaultAvatar}
-            alt='defaultAvatar'
-          />
+          <DefaultAvatar />
           <span>ЧН Абылгазиева Нурмира Нарматовна</span>
-          <Image src={arrowIcon} alt='arrowIcon' />
+          <ArrowIcon />
         </div>
         <div className='header__notification'>
-          <Image src={notificationIcon} alt='notificationIcon' />
+          <NotificationIcon />
         </div>
         <div className='header__lang'>
           <span>РУС</span>
-          <Image src={arrowIcon} alt='arrowIcon' />
+          <ArrowIcon />
         </div>
       </div>
     </header>

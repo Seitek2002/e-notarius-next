@@ -1,13 +1,12 @@
 'use client';
 
-import Image from 'next/image';
 import { FC, useEffect, useRef, useState } from 'react';
 import clsx from 'clsx';
 
 import { TPropsDropdown } from '../types';
 
-import dropdownArrow from '@assets/icons/dropdown/dropdown-arrow.svg';
-import dropdownSearch from '@assets/icons/dropdown/dropdown-search.svg';
+import DropdownArrow from '@assets/icons/dropdown/dropdown-arrow.svg';
+import DropdownSearch from '@assets/icons/dropdown/dropdown-search.svg';
 
 import './style.css';
 
@@ -131,7 +130,7 @@ const Dropdown: FC<TPropsDropdown> = ({
       >
         {searchable ? (
           <>
-            <Image src={dropdownSearch} alt='' />
+            <DropdownSearch />
             <input
               type='text'
               value={inputValue || ''}
@@ -146,11 +145,7 @@ const Dropdown: FC<TPropsDropdown> = ({
         ) : (
           <span>{value || 'Выберите значение'}</span>
         )}
-        <Image
-          src={dropdownArrow}
-          className={isOpen ? 'active' : ''}
-          alt='dropdown-arrow'
-        />
+        <DropdownArrow className={isOpen ? 'active' : ''} />
       </div>
 
       {/* Hidden input для отправки формы */}

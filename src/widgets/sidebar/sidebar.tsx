@@ -1,14 +1,13 @@
 'use client';
 
 import { FC } from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 import NavItem from '@/shared/ui/Nav/nav-item';
 
-import logo from '@assets/icons/logo.svg';
-import arrow from '@assets/icons/nav/arrow.svg';
+import Logo from '@assets/icons/logo.svg';
+import Arrow from '@assets/icons/nav/arrow.svg';
 import logout from '@assets/icons/nav/logout.svg';
 
 import { navs, publicNavs } from './model/navigation';
@@ -23,12 +22,12 @@ const Sidebar: FC = () => {
       <div className='sidebar__top'>
         <div className='sidebar__logo'>
           <Link href='/'>
-            <Image src={logo} alt='logo' />
+            <Logo />
             <span>E-notariat</span>
           </Link>
         </div>
         <div className='sidebar__toggler'>
-          <Image src={arrow} alt='' />
+          <Arrow />
         </div>
       </div>
       <div className='sidebar__owner'>
@@ -38,7 +37,7 @@ const Sidebar: FC = () => {
             key={item.path}
             path={item.path}
             label={item.label}
-            icon={item.icon}
+            Icon={item.icon}
             active={pathname === item.path}
           />
         ))}
@@ -50,14 +49,14 @@ const Sidebar: FC = () => {
             key={item.path}
             path={item.path}
             label={item.label}
-            icon={item.icon}
+            Icon={item.icon}
             active={pathname === item.path}
           />
         ))}
       </div>
       <hr className='my-5' />
       <NavItem
-        icon={logout}
+        Icon={logout}
         label='Выход с кабинета'
         path='/'
         active={pathname === '/'}

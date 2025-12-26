@@ -20,12 +20,12 @@
       outline: none;
     }
 
-    img + input + img {
+    svg + input + svg {
       transition: 0.2s;
       rotate: 0deg;
     }
 
-    img.active {
+    svg.active {
       rotate: 180deg;
     }
   }
@@ -37,6 +37,7 @@
     border-width: 0px;
     width: 100%;
     transition: all 0.3s ease;
+    z-index: 1;
 
     overflow-y: auto;
     background: #fff;

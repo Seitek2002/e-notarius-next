@@ -3,9 +3,9 @@ import Image from 'next/image';
 
 import { InputFile } from '@/shared/ui/Input';
 
-import uploadOwnFilesIcon from '@assets/icons/files/upload-own-files-icon.svg';
-import minusIcon from '@assets/icons/files/upload-minus-icon.svg';
-import plusIcon from '@assets/icons/files/upload-plus-icon.svg';
+import UploadOwnFilesIcon from '@assets/icons/files/upload-own-files-icon.svg';
+import MinusIcon from '@assets/icons/files/upload-minus-icon.svg';
+import PlusIcon from '@assets/icons/files/upload-plus-icon.svg';
 
 import './style.css';
 
@@ -47,7 +47,7 @@ const MultiFileUpload = () => {
       <div className='multi-file-upload__top'>
         <h2>Файлы для загрузки</h2>
         <button>
-          <Image src={uploadOwnFilesIcon} alt='upload-own-files-icon' />
+          <UploadOwnFilesIcon />
           <span>Выбрать из моих файлов</span>
         </button>
       </div>
@@ -63,11 +63,11 @@ const MultiFileUpload = () => {
             />
             {item === files[files.length - 1] ? (
               <div className='plus' onClick={addFile}>
-                <Image src={plusIcon} alt='plus-icon' />
+                <PlusIcon />
               </div>
             ) : (
               <div className='minus' onClick={() => removeFile(item.id)}>
-                <Image src={minusIcon} alt='minus-icon' />
+                <MinusIcon />
               </div>
             )}
           </div>

@@ -6,8 +6,8 @@ import { Popover } from './popover';
 
 import { Application, Column } from '@/widgets/table/applications/model';
 
-import filterIcon from '@assets/icons/table/filter-icon.svg';
-import sortIcon from '@assets/icons/table/sort-icon.svg';
+import FilterIcon from '@assets/icons/table/filter-icon.svg';
+import SortIcon from '@assets/icons/table/sort-icon.svg';
 
 export const TableHeaderCell = ({
   column,
@@ -44,13 +44,11 @@ export const TableHeaderCell = ({
         <span>{column.label}</span>
 
         {column.sortable && (
-          <Image
-            src={sortIcon}
-            alt='sortIcon'
+          <SortIcon
             style={{ transform: `rotate(${sortActive ? 180 : 0}deg)` }}
           />
         )}
-        {column.filterable && <Image src={filterIcon} alt='filterIcon' />}
+        {column.filterable && <FilterIcon />}
 
         {column.filterable && (
           <Popover isOpen={showPopover} setIsOpen={setShowPopover} />

@@ -1,9 +1,8 @@
 import { FC } from 'react';
-import Image from 'next/image';
 
 import { TPropsInputFile } from '../types';
 
-import clipIcon from '@assets/icons/files/clip-icon.svg';
+import СlipIcon from '@assets/icons/files/clip-icon.svg';
 
 import './style.css';
 
@@ -15,7 +14,7 @@ const inputFile: FC<TPropsInputFile> = ({ label, error, ...props }) => {
       <span>{label || 'Выберите файл'}</span>
       <input type='file' id={id} {...props} />
       <div className='input-file__icon'>
-        <Image src={clipIcon} alt='clip-icon' />
+        <СlipIcon />
       </div>
       {error && <p className='error'>{error}</p>}
     </label>

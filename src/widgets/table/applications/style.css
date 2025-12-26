@@ -13,6 +13,18 @@
       padding: 24px 16px;
     }
 
+    tbody {
+      tr {
+        transition: background-color 0.3s;
+      }
+
+      tr:hover {
+        outline: 1px solid #ccc;
+        outline-offset: -1px;
+        background: #fff;
+      }
+    }
+
     td {
       padding: 24px 16px;
     }

@@ -1,6 +1,7 @@
 .applications-table {
   overflow-x: auto;
   max-width: 100%;
+  height: calc(100vh - 100px);
 
   table {
     table-layout: auto;
@@ -17,6 +18,10 @@
     }
 
     thead {
+      position: sticky;
+      z-index: 2;
+      top: 0;
+
       text-wrap: nowrap;
       background: #fff;
       border: 1px solid #ccc;

@@ -8,10 +8,10 @@ import { QrPopover } from './qr-popover';
 import QrIcon from '@assets/icons/table/qr-icon.svg';
 
 type TProps = {
-  src: string;
+  value: string;
 };
 
-export const QrButton: FC<TProps> = ({ src }) => {
+export const QrButton: FC<TProps> = ({ value }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -20,7 +20,7 @@ export const QrButton: FC<TProps> = ({ src }) => {
         onClick={() => setIsOpen(true)}
         className={clsx('qr-icon', { active: isOpen })}
       />
-      <QrPopover isOpen={isOpen} setIsOpen={setIsOpen} />
+      <QrPopover isOpen={isOpen} setIsOpen={setIsOpen} QRvalue={value} />
     </div>
   );
 };

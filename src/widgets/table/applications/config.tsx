@@ -5,7 +5,7 @@ export const columns: Column<Application>[] = [
   {
     key: 'qr',
     label: 'QR',
-    render: (_, row) => <QrButton src={row.id + ''} />,
+    render: (_, row) => <QrButton value={row.id + ''} />,
   },
   {
     key: 'id',

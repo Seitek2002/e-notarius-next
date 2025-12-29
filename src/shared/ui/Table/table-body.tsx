@@ -7,12 +7,17 @@ type TProps<T extends TableRowBase> = {
   columns: Column<T>[];
   data: T[];
   renderRowActions?: (row: T) => ReactNode;
+
+  selectedIds?: Array<T['id']>;
+  onToggleRow?: (id: T['id']) => void;
 };
 
 export function TableBody<T extends TableRowBase>({
   columns,
   data,
   renderRowActions,
+  selectedIds,
+  onToggleRow
 }: TProps<T>) {
   return (
     <tbody>
@@ -25,6 +30,8 @@ export function TableBody<T extends TableRowBase>({
               row={row}
               renderRowActions={renderRowActions}
               isActions={column.key === 'actions'}
+              selectedIds={selectedIds}
+              onToggleRow={onToggleRow}
             />
           ))}
         </tr>

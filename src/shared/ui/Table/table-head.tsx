@@ -4,9 +4,12 @@ import { Checkbox } from '../Input';
 
 type TProps<T extends TableRowBase> = {
   columns: Column<T>[];
+
+  onToggleAll?: () => void;
+  allSelected?: boolean;
 };
 
-export function TableHead<T extends TableRowBase>({ columns }: TProps<T>) {
+export function TableHead<T extends TableRowBase>({ columns, onToggleAll, allSelected }: TProps<T>) {
   return (
     <thead>
       <tr>
@@ -14,7 +17,7 @@ export function TableHead<T extends TableRowBase>({ columns }: TProps<T>) {
           if (column.key === 'checkbox') {
             return (
               <th key={String(column.key)}>
-                <Checkbox label='' name='' />
+                <Checkbox label='' name='' onChange={onToggleAll} checked={allSelected} />
               </th>
             );
           } else {

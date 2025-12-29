@@ -1,18 +1,18 @@
-import { FC } from 'react';
+import { FC, ReactNode } from 'react';
 import { TableCell } from './table-cell';
 import { Application, Column } from '@/widgets/table/applications/model';
 
-import DetailsIcon from '@assets/icons/table/details-icon.svg';
-import EditIcon from '@assets/icons/table/edit-icon.svg';
-import DownloadIcon from '@assets/icons/table/download-icon.svg';
-import DeleteIcon from '@assets/icons/table/delete-icon.svg';
-
-type TProps = {
-  columns: Column<Application>[];
-  data: Application[];
+type TProps<T> = {
+  columns: Column<T>[];
+  data: T[];
+  renderRowActions?: (row: T) => ReactNode;
 };
 
-export const TableBody: FC<TProps> = ({ columns, data }) => {
+export const TableBody: FC<TProps<Application>> = ({
+  columns,
+  data,
+  renderRowActions,
+}) => {
   return (
     <tbody>
       {data.map((row) => (
@@ -20,12 +20,10 @@ export const TableBody: FC<TProps> = ({ columns, data }) => {
           {columns.map((column) => (
             <TableCell key={column.key} column={column} row={row} />
           ))}
-          <td className='icons'>
-            <DetailsIcon />
-            <EditIcon />
-            <DownloadIcon />
-            <DeleteIcon />
-          </td>
+
+          {renderRowActions && (
+            <td className='icons'>{renderRowActions(row)}</td>
+          )}
         </tr>
       ))}
     </tbody>

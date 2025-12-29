@@ -1,5 +1,5 @@
 import { Table } from '@/shared/ui/Table';
-import { columns, data } from '@/widgets/table/applications/config';
+import { columns, data } from './config';
 
 import DetailsIcon from '@assets/icons/table/details-icon.svg';
 import EditIcon from '@assets/icons/table/edit-icon.svg';

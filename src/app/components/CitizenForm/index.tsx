@@ -1,7 +1,6 @@
 'use client';
 
 import { FormEvent, useState } from 'react';
-import Image from 'next/image';
 import * as z from 'zod';
 
 import { Checkbox, Input, Radio } from '@/shared/ui/Input';
@@ -9,6 +8,7 @@ import Dropdown from '@/shared/ui/Dropdown/dropdown';
 import { MultiFileUpload } from '@/features/application-wizard/ui';
 import Button from '@/shared/ui/Button/button';
 import { ApplicationsTable } from '@/widgets/table/applications';
+import { FilesTable } from '@/widgets/table/files/ui';
 
 import Arrow from '@assets/icons/arrow.svg';
 
@@ -97,6 +97,7 @@ const CitizenForm = () => {
   return (
     <>
       <ApplicationsTable />
+      <FilesTable />
       <form onSubmit={(e) => handleSubmit(e)}>
         {fields.map((field) => {
           if (field.type === 'input') {

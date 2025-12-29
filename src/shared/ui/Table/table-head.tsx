@@ -1,20 +1,27 @@
-import { FC } from 'react';
-
+import { Column, TableRowBase } from '@/widgets/table/model';
 import { TableHeaderCell } from './table-header-cell';
-import { Application, Column } from '@/widgets/table/applications/model';
+import { Checkbox } from '../Input';
 
-type TProps = {
-  columns: Column<Application>[];
+type TProps<T extends TableRowBase> = {
+  columns: Column<T>[];
 };
 
-export const TableHead: FC<TProps> = ({ columns }) => {
+export function TableHead<T extends TableRowBase>({ columns }: TProps<T>) {
   return (
     <thead>
       <tr>
-        {columns.map((column) => (
-          <TableHeaderCell key={column.key} column={column} />
-        ))}
+        {columns.map((column) => {
+          if (column.key === 'checkbox') {
+            return (
+              <th key={String(column.key)}>
+                <Checkbox label='' name='' />
+              </th>
+            );
+          } else {
+            return <TableHeaderCell key={String(column.key)} column={column} />;
+          }
+        })}
       </tr>
     </thead>
   );
-};
+}

@@ -1,7 +1,8 @@
-import { Application, Column } from './model';
-import { QrButton } from '../../../shared/ui/Table/qr-button';
+import { Application, Column, Files } from '@/widgets/table/model';
+import { QrButton } from '../../shared/ui/Table/qr-button';
+import { Checkbox } from '@/shared/ui/Input';
 
-export const columns: Column<Application>[] = [
+export const applicationsColumns: Column<Application>[] = [
   {
     key: 'qr',
     label: 'QR',
@@ -64,7 +65,37 @@ export const columns: Column<Application>[] = [
   },
 ];
 
-export const data: Application[] = [
+export const filesColumns: Column<Files>[] = [
+  {
+    key: 'checkbox',
+    label: '', // Колонка для чекбокса, в заголовке обычно пустая или общий чекбокс
+    render: (_, row) => <button>
+      <Checkbox label='' name={row.fileName} />
+    </button>,
+  },
+  {
+    key: 'fileName',
+    label: 'Наименование файла',
+    sortable: true,
+  },
+  {
+    key: 'dateOfUpload',
+    label: 'Дата загрузки',
+    sortable: true,
+  },
+  {
+    key: 'fileSize',
+    label: 'Размер',
+    sortable: false,
+  },
+  {
+    key: 'fileFormat',
+    label: 'Формат',
+    sortable: false,
+  },
+];
+
+export const applicationsData: Application[] = [
   {
     id: 1,
     qr: 'qr-1',
@@ -163,5 +194,56 @@ export const data: Application[] = [
     cancelDate: '01.01.2022',
     fee: 'Оплачен',
     reason: '',
+  },
+];
+
+export const filesData: Files[] = [
+  {
+    id: 1,
+    checkbox: true,
+    fileName: 'Фото_для док.jpg',
+    dateOfUpload: '21.01.2022',
+    fileSize: '350 кб',
+    fileFormat: 'jpg',
+  },
+  {
+    id: 2,
+    checkbox: true,
+    fileName: 'Копия паспорта.jpg',
+    dateOfUpload: '21.01.2022',
+    fileSize: '1.2 мб',
+    fileFormat: 'pdf',
+  },
+  {
+    id: 3,
+    checkbox: false,
+    fileName: 'Свидетельство о браке.pdf',
+    dateOfUpload: '21.01.2022',
+    fileSize: '15 мб',
+    fileFormat: 'pdf',
+  },
+  {
+    id: 4,
+    checkbox: false,
+    fileName: 'Тех_паспорт.pdf',
+    dateOfUpload: '21.01.2022',
+    fileSize: '9 мб',
+    fileFormat: 'png',
+  },
+  {
+    id: 5,
+    checkbox: false,
+    fileName: 'Doc.png',
+    dateOfUpload: '21.01.2022',
+    fileSize: '132 кб',
+    fileFormat: 'pdf',
+  },
+  {
+    id: 6,
+    checkbox: false,
+    fileName: 'Движимое имущество.pdf',
+    dateOfUpload: '21.01.2022',
+    fileSize: '7.2 мб',
+    fileFormat: '', // В последней строке формат не указан
   },
 ];

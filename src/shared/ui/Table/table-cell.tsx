@@ -1,12 +1,11 @@
-import { Application, Column } from '@/widgets/table/applications/model';
+import { Column, TableRowBase } from '@/widgets/table/model';
 
-export const TableCell = ({
-  column,
-  row,
-}: {
-  column: Column<Application>;
-  row: Application;
-}) => {
+type TProps<T extends TableRowBase> = {
+  column: Column<T>;
+  row: T;
+};
+
+export function TableCell<T extends TableRowBase>({ column, row }: TProps<T>) {
   const value = row[column.key];
 
   return (
@@ -20,4 +19,4 @@ export const TableCell = ({
       {column.render ? column.render(value, row) : String(value ?? '')}
     </td>
   );
-};
+}

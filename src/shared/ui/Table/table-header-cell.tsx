@@ -3,16 +3,16 @@ import clsx from 'clsx';
 
 import { Popover } from './popover';
 
-import { Application, Column } from '@/widgets/table/applications/model';
+import { Column } from '@/widgets/table/applications/model';
 
 import FilterIcon from '@assets/icons/table/filter-icon.svg';
 import SortIcon from '@assets/icons/table/sort-icon.svg';
 
-export const TableHeaderCell = ({
+export function TableHeaderCell<T> ({
   column,
 }: {
-  column: Column<Application>;
-}) => {
+  column: Column<T>;
+}) {
   const [showPopover, setShowPopover] = useState(false);
   const [sortActive, setSortActive] = useState(false);
 

@@ -1,24 +1,25 @@
-import { FC, ReactNode } from 'react';
-import { TableCell } from './table-cell';
-import { Application, Column } from '@/widgets/table/applications/model';
+import { ReactNode } from 'react';
 
-type TProps<T> = {
+import { TableCell } from './table-cell';
+import { Column, TableRowBase } from '@/widgets/table/model';
+
+type TProps<T extends TableRowBase> = {
   columns: Column<T>[];
   data: T[];
   renderRowActions?: (row: T) => ReactNode;
 };
 
-export const TableBody: FC<TProps<Application>> = ({
+export function TableBody<T extends TableRowBase>({
   columns,
   data,
   renderRowActions,
-}) => {
+}: TProps<T>) {
   return (
     <tbody>
       {data.map((row) => (
         <tr key={row.id}>
           {columns.map((column) => (
-            <TableCell key={column.key} column={column} row={row} />
+            <TableCell key={String(column.key)} column={column} row={row} />
           ))}
 
           {renderRowActions && (
@@ -28,4 +29,4 @@ export const TableBody: FC<TProps<Application>> = ({
       ))}
     </tbody>
   );
-};
+}

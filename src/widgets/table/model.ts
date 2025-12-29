@@ -1,4 +1,8 @@
-export type Column<T> = {
+export type TableRowBase = {
+  id: string | number;
+};
+
+export type Column<T extends TableRowBase> = {
   key: keyof T;
   label: string;
   sortable?: boolean;
@@ -23,4 +27,14 @@ export type Application = {
   cancelDate: string;
   fee: string;
   reason: string;
+};
+
+export type Files = {
+  key?: string;
+  id: number;
+  checkbox: boolean;
+  fileName: string;
+  dateOfUpload: string;
+  fileSize: string;
+  fileFormat: string;
 };

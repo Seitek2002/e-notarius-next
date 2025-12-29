@@ -63,15 +63,21 @@ export const applicationsColumns: Column<Application>[] = [
     key: 'reason',
     filterable: true,
   },
+  {
+    key: 'actions',
+    label: 'Действия',
+  },
 ];
 
 export const filesColumns: Column<Files>[] = [
   {
     key: 'checkbox',
     label: '', // Колонка для чекбокса, в заголовке обычно пустая или общий чекбокс
-    render: (_, row) => <button>
-      <Checkbox label='' name={row.fileName} />
-    </button>,
+    render: (_, row) => (
+      <button>
+        <Checkbox label='' name={row.fileName} />
+      </button>
+    ),
   },
   {
     key: 'fileName',
@@ -92,6 +98,10 @@ export const filesColumns: Column<Files>[] = [
     key: 'fileFormat',
     label: 'Формат',
     sortable: false,
+  },
+  {
+    key: 'actions',
+    label: 'Действия',
   },
 ];
 

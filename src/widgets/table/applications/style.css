@@ -19,14 +19,17 @@
         position: relative;
       }
 
-      .icons {
-        display: flex;
+      .actions-cell {
         position: sticky;
         right: 0;
-        z-index: 1;
+        z-index: 2;
+        padding: 24px 16px;
+      }
+
+      .icons {
+        display: flex;
         background: #fff;
         gap: 20px;
-        padding: 22px 16px;
         margin-top: 1px;
 
         opacity: 0;

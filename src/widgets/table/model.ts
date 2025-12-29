@@ -27,6 +27,7 @@ export type Application = {
   cancelDate: string;
   fee: string;
   reason: string;
+  actions?: string;
 };
 
 export type Files = {
@@ -37,4 +38,5 @@ export type Files = {
   dateOfUpload: string;
   fileSize: string;
   fileFormat: string;
+  actions?: string;
 };

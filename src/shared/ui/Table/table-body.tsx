@@ -19,12 +19,14 @@ export function TableBody<T extends TableRowBase>({
       {data.map((row) => (
         <tr key={row.id}>
           {columns.map((column) => (
-            <TableCell key={String(column.key)} column={column} row={row} />
+            <TableCell
+              key={String(column.key)}
+              column={column}
+              row={row}
+              renderRowActions={renderRowActions}
+              isActions={column.key === 'actions'}
+            />
           ))}
-
-          {renderRowActions && (
-            <td className='icons'>{renderRowActions(row)}</td>
-          )}
         </tr>
       ))}
     </tbody>

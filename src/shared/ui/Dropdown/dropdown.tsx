@@ -158,7 +158,7 @@ const Dropdown: FC<TPropsDropdown> = ({
       <ul
         className={clsx(
           'absolute w-full top-full z-10 bg-white overflow-y-auto transition-all duration-300',
-          'max-h-0 border border-main-green border-0',
+          'max-h-0 border-main-green border-0',
           isOpen && 'max-h-52 border'
         )}
       >

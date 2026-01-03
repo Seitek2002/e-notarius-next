@@ -12,6 +12,7 @@ export const ApplicationsTable = () => {
       <Table
         columns={applicationsColumns}
         data={applicationsData}
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         renderRowActions={(row) => (
           <>
             <DetailsIcon className='cursor-pointer' />

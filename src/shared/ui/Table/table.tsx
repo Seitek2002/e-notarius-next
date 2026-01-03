@@ -1,5 +1,4 @@
 import { ReactNode } from 'react';
-
 import { TableBody } from './table-body';
 import { TableHead } from './table-head';
 import { Column, TableRowBase } from '@/widgets/table/model';
@@ -8,7 +7,6 @@ type TableProps<T extends TableRowBase> = {
   columns: Column<T>[];
   data: T[];
   renderRowActions?: (row: T) => ReactNode;
-
   selectedIds?: Array<T['id']>;
   onToggleAll?: () => void;
   onToggleRow?: (id: T['id']) => void;
@@ -22,11 +20,15 @@ export function Table<T extends TableRowBase>({
   onToggleAll,
   onToggleRow,
   allSelected,
-  selectedIds
+  selectedIds,
 }: TableProps<T>) {
   return (
-    <table>
-      <TableHead columns={columns} onToggleAll={onToggleAll} allSelected={allSelected} />
+    <table className='table-auto w-max min-w-full border-collapse'>
+      <TableHead
+        columns={columns}
+        onToggleAll={onToggleAll}
+        allSelected={allSelected}
+      />
       <TableBody
         columns={columns}
         data={data}

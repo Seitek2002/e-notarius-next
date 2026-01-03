@@ -1,5 +1,4 @@
 import { ReactNode } from 'react';
-
 import { Column, TableRowBase } from '@/widgets/table/model';
 import { Checkbox } from '../Input';
 
@@ -8,7 +7,6 @@ type TProps<T extends TableRowBase> = {
   row: T;
   renderRowActions?: (row: T) => ReactNode;
   isActions: boolean;
-
   selectedIds?: Array<T['id']>;
   onToggleRow?: (id: T['id']) => void;
 };
@@ -23,9 +21,12 @@ export function TableCell<T extends TableRowBase>({
 }: TProps<T>) {
   const value = row[column.key];
 
+  // Общие стили padding (из th/td в CSS)
+  const cellPadding = 'px-4 py-6';
+
   if (column.key === 'checkbox') {
     return (
-      <td>
+      <td className={cellPadding}>
         <Checkbox
           label=''
           name={row.id + ''}
@@ -38,21 +39,25 @@ export function TableCell<T extends TableRowBase>({
 
   if (isActions && renderRowActions) {
     return (
-      <td className='actions-cell'>
-        <div className='icons'>{renderRowActions(row)}</div>
+      <td className={`sticky right-0 z-20 ${cellPadding}`}>
+        {/* Контейнер иконок: скрыт по умолчанию, показывается при group-hover (наведение на tr) */}
+        <div className='flex gap-5 bg-white mt-px opacity-0 pointer-events-none transition-opacity duration-200 group-hover:opacity-100 group-hover:pointer-events-auto'>
+          {renderRowActions(row)}
+        </div>
       </td>
     );
   }
 
   return (
     <td
+      className={cellPadding}
       style={{
         width: column.width,
         minWidth: column.minWidth,
         textAlign: column.align ?? 'left',
       }}
     >
-      {String(value ?? '')}
+      {column.render ? column.render(value, row) : String(value ?? '')}
     </td>
   );
 }

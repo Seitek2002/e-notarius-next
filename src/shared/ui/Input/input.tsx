@@ -25,7 +25,7 @@ const Input: FC<TPropsInput> = ({
     >
       {label && <span className='text-light-blue font-medium'>{label}</span>}
       <input type={type} id={id} className={inputClasses} {...props} />
-      {error && <p className='text-red text-[12px]'>{error}</p>}
+      {error && <p className='text-red-500 text-[12px]'>{error}</p>}
     </label>
   );
 };

@@ -25,7 +25,7 @@ const inputFile: FC<TPropsInputFile> = ({
       <div className='w-[70px] h-[42px] grid place-items-center bg-main-green box-border'>
         <СlipIcon />
       </div>
-      {error && <p className='text-red text-[12px]'>{error}</p>}
+      {error && <p className='text-red-500 text-[12px]'>{error}</p>}
     </label>
   );
 };

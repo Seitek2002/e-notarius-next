@@ -131,7 +131,6 @@ const CitizenForm = () => {
         />
         <Checkbox label='Иностранное лицо' name='foreigner' />
         <MultiFileUpload />
-        {/* <button type='submit'>Отправить</button> */}
         <Button loading={false}>
           <span>Подтвердить</span>
           <Arrow />

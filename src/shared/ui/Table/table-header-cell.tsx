@@ -2,7 +2,6 @@ import { useState } from 'react';
 import clsx from 'clsx';
 import { Popover } from './popover';
 import { Column, TableRowBase } from '@/widgets/table/model';
-// import { Column } from '@/widgets/table/applications/model';
 
 import FilterIcon from '@assets/icons/table/filter-icon.svg';
 import SortIcon from '@assets/icons/table/sort-icon.svg';

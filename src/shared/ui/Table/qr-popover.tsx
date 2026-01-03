@@ -6,8 +6,6 @@ import Button from '../Button/button';
 
 import ShareIcon from '@assets/icons/table/share-icon.svg';
 
-import './style.css';
-
 type TProps = {
   isOpen: boolean;
   setIsOpen: (open: boolean) => void;
@@ -35,19 +33,26 @@ export const QrPopover: FC<TProps> = ({ isOpen, setIsOpen, QRvalue }) => {
   }, []);
 
   return (
-    <div className={clsx('qr-popover', { open: isOpen })} ref={popoverRef}>
+    <div
+      className={clsx(
+        'absolute z-10 bg-white p-2.5 px-4 w-[200px] text-center text-[14px] ',
+        'shadow-[0_10px_20px_0_#e9e9e9]',
+        { block: isOpen, hidden: !isOpen }
+      )}
+      ref={popoverRef}
+    >
       <h2 className='mb-4'>Отсканируйте QR-код</h2>
       <center>
         <QRCode value={QRvalue} className='size-[100px]' />
       </center>
       <span className='font-semibold text-light-blue mt-2'>{QRvalue}</span>
-      <Button>
+      <Button className='min-w-full'>
         <div className='flex items-center gap-2 text-[14px]'>
           Поделиться
           <ShareIcon />
         </div>
       </Button>
-      <hr className='mt-4' />
+      <hr className='mt-4 border-[#efefef]' />
       <button className='text-main-green py-3 font-semibold'>Подробнее</button>
       <br />
       <button

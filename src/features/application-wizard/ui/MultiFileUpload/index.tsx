@@ -1,13 +1,10 @@
 import { useState } from 'react';
-import Image from 'next/image';
 
 import { InputFile } from '@/shared/ui/Input';
 
 import UploadOwnFilesIcon from '@assets/icons/files/upload-own-files-icon.svg';
 import MinusIcon from '@assets/icons/files/upload-minus-icon.svg';
 import PlusIcon from '@assets/icons/files/upload-plus-icon.svg';
-
-import './style.css';
 
 type FileItem = {
   id: number;
@@ -43,15 +40,15 @@ const MultiFileUpload = () => {
   };
 
   return (
-    <div className='multi-file-upload'>
-      <div className='multi-file-upload__top'>
-        <h2>Файлы для загрузки</h2>
-        <button>
+    <div>
+      <div className='flex justify-between items-center font-semibold text-[16px] mb-4'>
+        <h2 className='text-light-blue'>Файлы для загрузки</h2>
+        <button className='flex items-center text-main-green gap-1.5 cursor-pointer'>
           <UploadOwnFilesIcon />
           <span>Выбрать из моих файлов</span>
         </button>
       </div>
-      <div className='multi-file-upload__content'>
+      <div className='flex flex-col gap-4'>
         {files.map((item, index) => (
           <div key={item.id} className='flex gap-2.5'>
             <InputFile
@@ -60,13 +57,20 @@ const MultiFileUpload = () => {
               onChange={(e) =>
                 handleFileChange(item.id, e.target.files?.[0] ?? null)
               }
+              className='flex-1'
             />
             {item === files[files.length - 1] ? (
-              <div className='plus' onClick={addFile}>
+              <div
+                className='w-11 h-11 flex items-center justify-center cursor-pointer bg-main-green'
+                onClick={addFile}
+              >
                 <PlusIcon />
               </div>
             ) : (
-              <div className='minus' onClick={() => removeFile(item.id)}>
+              <div
+                className='w-11 h-11 flex items-center justify-center cursor-pointer bg-light-blue'
+                onClick={() => removeFile(item.id)}
+              >
                 <MinusIcon />
               </div>
             )}

@@ -12,26 +12,24 @@ import logout from '@assets/icons/nav/logout.svg';
 
 import { navs, publicNavs } from './model/navigation';
 
-import './style.css';
-
 const Sidebar: FC = () => {
   const pathname = usePathname();
 
   return (
-    <div className='sidebar'>
-      <div className='sidebar__top'>
-        <div className='sidebar__logo'>
+    <div className='text-white bg-main-green w-[280px] shrink-0 py-[50px] box-border'>
+      <div className='flex items-center justify-between mb-10 px-5'>
+        <div className='uppercase font-bold text-[16px]'>
           <Link href='/'>
             <Logo />
             <span>E-notariat</span>
           </Link>
         </div>
-        <div className='sidebar__toggler'>
+        <div className='bg-[#6fcf97] p-2.5 cursor-pointer'>
           <Arrow />
         </div>
       </div>
-      <div className='sidebar__owner'>
-        <h2>Личный кабинет</h2>
+      <div className='font-bold text-[18px] mb-[15px]'>
+        <h2 className='ml-[25px]'>Личный кабинет</h2>
         {navs.map((item) => (
           <NavItem
             key={item.path}
@@ -43,7 +41,7 @@ const Sidebar: FC = () => {
         ))}
       </div>
       <hr className='my-5' />
-      <div className='sidebar__public'>
+      <div>
         {publicNavs.map((item) => (
           <NavItem
             key={item.path}

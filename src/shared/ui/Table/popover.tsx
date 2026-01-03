@@ -3,8 +3,6 @@ import clsx from 'clsx';
 
 import { Checkbox } from '../Input';
 
-import './style.css';
-
 type TPopover = {
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
@@ -31,8 +29,14 @@ export const Popover: FC<TPopover> = ({ isOpen, setIsOpen }) => {
   }, []);
 
   return (
-    <div className={clsx('table-popover', { open: isOpen })} ref={popoverRef}>
-      <div className='table-popover__content'>
+    <div
+      className={clsx(
+        'absolute left-0 bottom-[-220px] min-w-full bg-white p-2.5 px-4 shadow-[0_10px_20px_0_#e9e9e9] z-10',
+        { block: isOpen, hidden: !isOpen }
+      )}
+      ref={popoverRef}
+    >
+      <div className='text-[14px] font-normal max-h-[150px] overflow-y-auto'>
         <Checkbox label='Доверенность' name='Доверенность' />
         <Checkbox label='Договор' name='Договор' />
         <Checkbox label='Соглашение' name='Соглашение' />
@@ -40,7 +44,7 @@ export const Popover: FC<TPopover> = ({ isOpen, setIsOpen }) => {
         <Checkbox label='Иск' name='Иск' />
         <Checkbox label='Хадатойство' name='Хадатойство' />
       </div>
-      <button>Готово</button>
+      <button className='w-full py-3 text-main-green'>Готово</button>
     </div>
   );
 };

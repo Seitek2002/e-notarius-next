@@ -3,16 +3,29 @@ import clsx from 'clsx';
 
 import { TPropsInput } from '../types';
 
-import './style.css';
-
-const Input: FC<TPropsInput> = ({ label, error, type = 'text', ...props }) => {
+const Input: FC<TPropsInput> = ({
+  label,
+  error,
+  type = 'text',
+  className,
+  ...props
+}) => {
   const id = props.id ?? props.name;
 
+  const inputClasses = clsx(
+    'border border-main-green text-light-blue outline-none py-3 px-2.5',
+    'focus:border-main-green focus:ring-2 focus:ring-main-green/30',
+    error && 'border-red'
+  );
+
   return (
-    <label className={clsx('input-text', { error })} htmlFor={id}>
-      {label && <span>{label}</span>}
-      <input type={type} id={id} {...props} />
-      {error && <p className='error'>{error}</p>}
+    <label
+      className={clsx('flex flex-col text-[14px] space-y-1.5', className)}
+      htmlFor={id}
+    >
+      {label && <span className='text-light-blue font-medium'>{label}</span>}
+      <input type={type} id={id} className={inputClasses} {...props} />
+      {error && <p className='text-red text-[12px]'>{error}</p>}
     </label>
   );
 };

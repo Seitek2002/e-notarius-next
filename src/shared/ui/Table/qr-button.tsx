@@ -18,7 +18,11 @@ export const QrButton: FC<TProps> = ({ value }) => {
     <div className='relative'>
       <QrIcon
         onClick={() => setIsOpen(true)}
-        className={clsx('qr-icon', { active: isOpen })}
+        className={clsx(
+          'cursor-pointer',
+          // default stroke from SVG is dark-blue; when open, override to main green via arbitrary property
+          isOpen && '[&_path]:stroke-[#1BAA75]'
+        )}
       />
       <QrPopover isOpen={isOpen} setIsOpen={setIsOpen} QRvalue={value} />
     </div>

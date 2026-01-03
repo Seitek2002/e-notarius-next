@@ -8,8 +8,6 @@ import { TPropsDropdown } from '../types';
 import DropdownArrow from '@assets/icons/dropdown/dropdown-arrow.svg';
 import DropdownSearch from '@assets/icons/dropdown/dropdown-search.svg';
 
-import './style.css';
-
 const Dropdown: FC<TPropsDropdown> = ({
   label,
   searchable,
@@ -110,14 +108,14 @@ const Dropdown: FC<TPropsDropdown> = ({
   }, []);
 
   return (
-    <div className='dropdown' ref={dropdownRef}>
+    <div className='text-[14px] text-light-blue relative' ref={dropdownRef}>
       {label && (
         <span>
-          {label} {required && <sup style={{ color: 'red' }}>*</sup>}
+          {label} {required && <sup className='text-red'>*</sup>}
         </span>
       )}
       <div
-        className='dropdown-top'
+        className='flex justify-between items-center border border-main-green px-2.5'
         role='button'
         tabIndex={0}
         onClick={() => setIsOpen(!isOpen)}
@@ -129,7 +127,7 @@ const Dropdown: FC<TPropsDropdown> = ({
         }}
       >
         {searchable ? (
-          <>
+          <div className='flex items-center w-full'>
             <DropdownSearch />
             <input
               type='text'
@@ -140,23 +138,40 @@ const Dropdown: FC<TPropsDropdown> = ({
               }}
               onChange={(e) => handleSearch(e)}
               placeholder={value ? '' : 'Поиск или выберите'}
+              className='w-full py-3 px-2.5 outline-none'
             />
-          </>
+          </div>
         ) : (
-          <span>{value || 'Выберите значение'}</span>
+          <span className='py-3 px-2.5'>{value || 'Выберите значение'}</span>
         )}
-        <DropdownArrow className={isOpen ? 'active' : ''} />
+        <DropdownArrow
+          className={clsx(
+            'transition duration-200',
+            isOpen ? 'rotate-180' : 'rotate-0'
+          )}
+        />
       </div>
 
       {/* Hidden input для отправки формы */}
       {name && <input type='hidden' name={name} value={value ?? ''} />}
 
-      <ul className={clsx('dropdown-list', { active: isOpen })}>
-        {filtered.length === 0 && <li className='empty'>Ничего не найдено</li>}
+      <ul
+        className={clsx(
+          'absolute w-full top-full z-10 bg-white overflow-y-auto transition-all duration-300',
+          'max-h-0 border border-main-green border-0',
+          isOpen && 'max-h-52 border'
+        )}
+      >
+        {filtered.length === 0 && (
+          <li className='py-1.5 px-1 text-light-blue'>Ничего не найдено</li>
+        )}
         {filtered.map((option, i) => (
           <li
             key={option}
-            className={highlightIndex === i ? 'active' : ''}
+            className={clsx(
+              'py-1.5 px-1 cursor-pointer transition-colors duration-200',
+              i === highlightIndex && 'bg-main-green text-white'
+            )}
             onMouseEnter={() => setHighlightIndex(i)}
             onClick={() => handleOptionClick(option)}
           >

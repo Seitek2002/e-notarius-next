@@ -8,15 +8,13 @@ import { filesColumns, filesData } from '@/widgets/table/config';
 import DownloadIcon from '@assets/icons/table/download-icon.svg';
 import DeleteIcon from '@assets/icons/table/delete-icon.svg';
 
-import './style.css';
-
 export const FilesTable = () => {
   const [selectedIds, setSelectedIds] = useState<number[]>([]);
 
   const allSelected = selectedIds.length === filesData.length;
 
   return (
-    <div className='applications-table'>
+    <div className='overflow-x-auto max-w-full h-[calc(100vh-100px)]'>
       <Table
         columns={filesColumns}
         data={filesData}

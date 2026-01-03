@@ -3,7 +3,7 @@ import clsx from 'clsx';
 
 import { TPropsCheckbox } from '../types';
 
-import './style.css';
+import './checkbox.css';
 
 const Checkbox: FC<TPropsCheckbox> = ({ label, error, ...props }) => {
   const id = `${props.name}-${props.value}`;

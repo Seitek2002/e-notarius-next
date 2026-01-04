@@ -3,12 +3,12 @@
 import { FC, useEffect, useRef, useState } from 'react';
 import clsx from 'clsx';
 
-import { TPropsDropdown } from '../types';
+import { DropdownProps } from '../types';
 
 import DropdownArrow from '@assets/icons/dropdown/dropdown-arrow.svg';
 import DropdownSearch from '@assets/icons/dropdown/dropdown-search.svg';
 
-const Dropdown: FC<TPropsDropdown> = ({
+const Dropdown: FC<DropdownProps> = ({
   label,
   searchable,
   options,

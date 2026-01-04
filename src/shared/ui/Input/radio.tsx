@@ -1,9 +1,9 @@
 import { FC } from 'react';
 import clsx from 'clsx';
 
-import { TPropsRadio } from '../types';
+import { CheckboxProps } from '../types';
 
-const Radio: FC<TPropsRadio> = ({ label, error, className, ...props }) => {
+const Radio: FC<CheckboxProps> = ({ label, error, className, ...props }) => {
   const id = props.id ?? `${props.name}-${props.value}`;
 
   return (

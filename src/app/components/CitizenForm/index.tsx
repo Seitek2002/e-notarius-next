@@ -124,7 +124,7 @@ const CitizenForm = () => {
           name='region'
           label='Область'
           value={region}
-          onChange={(newValue) => setRegion(newValue)}
+          onChange={(newValue: string) => setRegion(newValue)}
           options={['Чуй', 'Нарын', 'Талас', 'Баткен', 'Джалал-Абад', 'Ош']}
           searchable
           required

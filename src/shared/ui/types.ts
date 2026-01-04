@@ -1,41 +1,44 @@
 import { ButtonHTMLAttributes, InputHTMLAttributes } from 'react';
 
+// Общие пропсы для всех полей ввода
 type BaseFieldProps = {
   label?: string;
-  error?: string;
+  error?: string; // Теперь ошибка есть у всех
+  className?: string; // Полезно добавить, чтобы стилизовать отступы снаружи
 };
 
-type TPropsInputFile = BaseFieldProps & InputHTMLAttributes<HTMLInputElement>;
+// INPUT
+export type InputProps = BaseFieldProps & InputHTMLAttributes<HTMLInputElement>;
 
-type TPropsCheckbox = {
-  label: string;
+// INPUT FILE
+export type InputFileProps = BaseFieldProps &
+  InputHTMLAttributes<HTMLInputElement>;
+
+// CHECKBOX & RADIO
+export type CheckboxProps = {
+  label: string; // label обязателен для чекбокса
 } & BaseFieldProps &
   InputHTMLAttributes<HTMLInputElement>;
 
-type TPropsRadio = {
+// DROPDOWN
+export type DropdownOption = {
+  value: string;
   label: string;
-} & BaseFieldProps &
-  InputHTMLAttributes<HTMLInputElement>;
+};
 
-type TPropsInput = BaseFieldProps & InputHTMLAttributes<HTMLInputElement>;
-
-type TPropsDropdown = {
-  label?: string;
+export type DropdownProps = BaseFieldProps & {
   name?: string;
+  // Поддерживаем и массив строк, и массив объектов (на вырост)
   options: string[];
   searchable?: boolean;
   value: string | null;
   required?: boolean;
+  // Возвращаем value, а не Event
   onChange: (value: string) => void;
 };
 
-type TButton = { loading?: boolean } & ButtonHTMLAttributes<HTMLButtonElement>;
-
-export type {
-  TPropsRadio,
-  TPropsInput,
-  TPropsDropdown,
-  TPropsCheckbox,
-  TPropsInputFile,
-  TButton,
-};
+// BUTTON
+export type ButtonProps = {
+  loading?: boolean;
+  // variant?: 'primary' | 'secondary' | 'outline'; // Обычно добавляют варианты стилей
+} & ButtonHTMLAttributes<HTMLButtonElement>;

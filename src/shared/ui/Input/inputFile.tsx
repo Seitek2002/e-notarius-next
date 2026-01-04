@@ -1,10 +1,10 @@
 import { FC } from 'react';
 
-import { TPropsInputFile } from '../types';
+import { InputFileProps } from '../types';
 
 import СlipIcon from '@assets/icons/files/clip-icon.svg';
 
-const inputFile: FC<TPropsInputFile> = ({
+const inputFile: FC<InputFileProps> = ({
   label,
   error,
   className,

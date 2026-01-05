@@ -2,14 +2,14 @@ import { FC } from 'react';
 import Link from 'next/link';
 import clsx from 'clsx';
 
-type TProps = {
+type NavItemProps = {
   path: string;
   label: string;
   Icon: FC;
   active: boolean;
 };
 
-const NavItem: FC<TProps> = ({ path, label, Icon, active }) => {
+const NavItem: FC<NavItemProps> = ({ path, label, Icon, active }) => {
   return (
     <Link
       href={path}

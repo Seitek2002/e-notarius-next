@@ -16,7 +16,7 @@ const Sidebar: FC = () => {
   const pathname = usePathname();
 
   return (
-    <div className='text-white bg-main-green w-[280px] shrink-0 py-[50px] box-border'>
+    <aside className='text-white bg-main-green min-h-screen w-[280px] shrink-0 py-[50px] box-border'>
       <div className='flex items-center justify-between mb-10 px-5'>
         <div className='uppercase font-bold text-[16px]'>
           <Link href='/'>
@@ -36,7 +36,7 @@ const Sidebar: FC = () => {
             path={item.path}
             label={item.label}
             Icon={item.icon}
-            active={pathname === item.path}
+            active={pathname.startsWith(item.path)}
           />
         ))}
       </div>
@@ -59,7 +59,7 @@ const Sidebar: FC = () => {
         path='/'
         active={pathname === '/'}
       />
-    </div>
+    </aside>
   );
 };
 

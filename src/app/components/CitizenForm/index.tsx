@@ -26,6 +26,15 @@ const citizenSchema = z.object({
   foreigner: z.boolean().optional(), // Добавил чекбокс
   // files пока оставим any, это отдельная тема с FileList
   files: z.any().optional(),
+  documents: z
+    .array(
+      z.object({
+        file: z
+          .custom<FileList>() // RHF возвращает FileList
+          .refine((files) => files?.length > 0, 'Загрузите файл'), // Проверка, что файл выбран
+      })
+    )
+    .min(1, 'Добавьте хотя бы один документ'),
 });
 
 type CitizenFormValues = z.infer<typeof citizenSchema>;
@@ -49,6 +58,7 @@ const CitizenForm = () => {
       personType: 'individual', // Значение по умолчанию для радио
       foreigner: false,
       region: '',
+      documents: [{ file: undefined }],
     },
   });
 
@@ -102,8 +112,13 @@ const CitizenForm = () => {
         />
 
         <Checkbox label='Иностранное лицо' {...register('foreigner')} />
-        <MultiFileUpload />
-        <Button type="submit" loading={isSubmitting}>
+        <MultiFileUpload<CitizenFormValues>
+          control={control}
+          register={register}
+          errors={errors}
+          name='documents' // Имя поля в схеме
+        />
+        <Button type='submit' loading={isSubmitting}>
           <span>Подтвердить</span>
           <Arrow />
         </Button>

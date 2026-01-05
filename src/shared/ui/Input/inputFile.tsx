@@ -1,33 +1,41 @@
-import { FC } from 'react';
+import { forwardRef } from 'react';
+import clsx from 'clsx';
 
 import { InputFileProps } from '../types';
 
-import СlipIcon from '@assets/icons/files/clip-icon.svg';
+import ClipIcon from '@assets/icons/files/clip-icon.svg';
 
-const inputFile: FC<InputFileProps> = ({
-  label,
-  error,
-  className,
-  ...props
-}) => {
-  const id = props.id ?? props.name;
+const InputFile = forwardRef<HTMLInputElement, InputFileProps>(
+  ({ label, error, className, ...props }, ref) => {
+    const id = props.id ?? props.name;
 
-  return (
-    <label
-      className={
-        'border border-main-green cursor-pointer max-w-full flex items-center justify-between text-light-blue ' +
-        (className || '')
-      }
-      htmlFor={id}
-    >
-      <span className='pl-[15px] text-[14px]'>{label || 'Выберите файл'}</span>
-      <input type='file' id={id} className='sr-only' {...props} />
-      <div className='w-[70px] h-[42px] grid place-items-center bg-main-green box-border'>
-        <СlipIcon />
+    return (
+      <div className={clsx('w-full', className)}>
+        <label
+          htmlFor={id}
+          className={clsx(
+            'flex items-center justify-between cursor-pointer border transition-colors',
+            'text-sm text-light-blue',
+            error ? 'border-red-500' : 'border-main-green'
+          )}
+        >
+          <span className='pl-4 truncate max-w-[200px]'>
+            {label || 'Выберите файл'}
+          </span>
+
+          <input type='file' id={id} ref={ref} className='sr-only' {...props} />
+
+          <div className='w-[70px] h-[42px] flex items-center justify-center bg-main-green shrink-0'>
+            <ClipIcon />
+          </div>
+        </label>
+
+        {error && <p className='mt-1 text-xs text-red-500'>{error}</p>}
       </div>
-      {error && <p className='text-red-500 text-[12px]'>{error}</p>}
-    </label>
-  );
-};
+    );
+  }
+);
 
-export default inputFile;
+InputFile.displayName = 'InputFile';
+
+export default InputFile;

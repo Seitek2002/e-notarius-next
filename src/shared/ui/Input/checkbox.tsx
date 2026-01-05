@@ -3,17 +3,20 @@ import clsx from 'clsx';
 
 import { CheckboxProps } from '../types';
 
-import './checkbox.css';
+import s from './checkbox.module.css';
 
 const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
   ({ label, error, ...props }, ref) => {
-    const id = `${props.name}-${props.value}`;
-
     return (
-      <label className={clsx('input-checkbox', { error })} htmlFor={id}>
-        <input ref={ref} type='checkbox' id={id} {...props} />
-        <span>{label}</span>
-      </label>
+      <div>
+        <label className={clsx(s.inputCheckbox, { error })} htmlFor={props.id}>
+          <input ref={ref} type='checkbox' id={props.id} {...props} />
+          <span>{label}</span>
+        </label>
+        {error && (
+          <p className='mt-1 text-xs text-red-500 animate-fadeIn'>{error}</p>
+        )}
+      </div>
     );
   }
 );

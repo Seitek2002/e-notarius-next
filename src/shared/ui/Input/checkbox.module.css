@@ -1,5 +1,5 @@
 /* Checkbox keeps bespoke CSS (including SVG checkmark) as requested */
-.input-checkbox {
+.inputCheckbox {
   display: flex;
   gap: 8px;
   align-items: center;
@@ -7,7 +7,7 @@
   padding: 4px 0;
 }
 
-.input-checkbox input {
+.inputCheckbox input {
   -webkit-appearance: none;
   appearance: none;
   width: 13px;
@@ -20,12 +20,12 @@
   flex-shrink: 0;
 }
 
-.input-checkbox input:checked {
+.inputCheckbox input:checked {
   background-color: #10b981;
   border-color: #10b981;
 }
 
-.input-checkbox input:checked::after {
+.inputCheckbox input:checked::after {
   content: '';
   display: block;
   width: 10px;
@@ -42,21 +42,21 @@
   transition: scale translate 0.2s ease, background 0.2s ease;
 }
 
-.input-checkbox input:checked:checked::after {
+.inputCheckbox input:checked:checked::after {
   scale: 1;
   opacity: 1;
 }
 
-.input-checkbox input:hover {
+.inputCheckbox input:hover {
   border-color: var(--main-green);
   box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.2);
 }
 
-.input-checkbox input:focus {
+.inputCheckbox input:focus {
   outline: none;
   box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.4);
 }
 
-.input-checkbox.error input {
+.inputCheckbox.error input {
   border: 1px solid var(--red);
 }

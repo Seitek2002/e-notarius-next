@@ -1,6 +1,6 @@
 'use client';
 
-import { FC, useEffect, useRef, useState } from 'react';
+import { FC, useEffect, useRef, useState, useMemo } from 'react';
 import clsx from 'clsx';
 
 import { DropdownProps } from '../types';
@@ -14,171 +14,149 @@ const Dropdown: FC<DropdownProps> = ({
   options,
   value,
   onChange,
-  name,
   required,
+  error, // Принимаем ошибку для красной рамки
 }) => {
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   const [isOpen, setIsOpen] = useState(false);
-  const [inputValue, setInputValue] = useState<string>(value ?? '');
-  const [filtered, setFiltered] = useState(options);
-  const [highlightIndex, setHighlightIndex] = useState<number>(-1);
+  const [query, setQuery] = useState(''); // Текст поиска
+  const [highlightIndex, setHighlightIndex] = useState(-1);
 
-  function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
-    if (!isOpen) setIsOpen(true);
-
-    if (e.key === 'ArrowDown') {
-      e.preventDefault();
-      setHighlightIndex((prev) => Math.min(prev + 1, filtered.length - 1));
-      return;
-    }
-
-    if (e.key === 'ArrowUp') {
-      e.preventDefault();
-      setHighlightIndex((prev) => Math.max(prev - 1, 0));
-      return;
-    }
-
-    if (e.key === 'Enter') {
-      e.preventDefault();
-      if (highlightIndex >= 0) {
-        onChange(filtered[highlightIndex]);
-        setIsOpen(false);
-      }
-      return;
-    }
-
-    if (e.key === 'Escape') {
-      setIsOpen(false);
-    }
-  }
-
-  function handleSearch(e: React.ChangeEvent<HTMLInputElement>) {
-    const v = e.target.value;
-    setInputValue(v);
-
-    const filt = options.filter((o) =>
-      o.toLowerCase().includes(v.toLowerCase())
+  // 1. Оптимизация: Фильтруем список "на лету"
+  // Если searchable выключен — показываем всё. Если включен — фильтруем.
+  const filteredOptions = useMemo(() => {
+    if (!searchable || !query) return options;
+    return options.filter((option) =>
+      option.toLowerCase().includes(query.toLowerCase())
     );
-    setFiltered(filt);
+  }, [options, query, searchable]);
 
-    setHighlightIndex(filt.length > 0 ? 0 : -1);
-  }
-
-  function handleOptionClick(option: string) {
-    onChange(option);
-    setInputValue(option);
-    setIsOpen(false);
-  }
-
+  // 2. Синхронизация: Если value изменился снаружи (например, reset формы) — обновляем query
   useEffect(() => {
-    if (!isOpen) {
-      setHighlightIndex(-1);
-    }
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setQuery(value || '');
+  }, [value]);
 
-    const newValue = value || '';
-    if (inputValue !== newValue) {
-      setInputValue(newValue);
-    }
-
-    setFiltered(options);
-
-    const idx = value ? options.indexOf(value) : -1;
-    if (highlightIndex !== idx) {
-      setHighlightIndex(idx);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isOpen]);
-
+  // Закрытие при клике вне
   useEffect(() => {
-    function handleClickOutside(e: MouseEvent) {
+    const handleClickOutside = (e: MouseEvent) => {
       if (
         dropdownRef.current &&
         !dropdownRef.current.contains(e.target as Node)
       ) {
         setIsOpen(false);
+        // Если закрыли и ничего не выбрали — сбрасываем поиск к текущему value
+        setQuery(value || '');
       }
-    }
-
-    document.addEventListener('mousedown', handleClickOutside);
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, []);
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [value]);
+
+  const handleSelect = (option: string) => {
+    onChange(option); // Сообщаем React Hook Form
+    setQuery(option); // Обновляем инпут
+    setIsOpen(false);
+    setHighlightIndex(-1);
+  };
 
   return (
-    <div className='text-[14px] text-light-blue relative' ref={dropdownRef}>
+    <div
+      className={clsx(
+        'relative flex flex-col gap-1.5',
+        'text-sm text-light-blue'
+      )}
+      ref={dropdownRef}
+    >
       {label && (
-        <span>
-          {label} {required && <sup className='text-red'>*</sup>}
+        <span className='font-medium'>
+          {label} {required && <span className='text-red-500'>*</span>}
         </span>
       )}
+
       <div
-        className='flex justify-between items-center border border-main-green px-2.5'
-        role='button'
-        tabIndex={0}
-        onClick={() => setIsOpen(!isOpen)}
-        onKeyDown={(e) => {
-          if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            setIsOpen((s) => !s);
-          }
-        }}
+        className={clsx(
+          'flex items-center justify-between border transition-all duration-200 cursor-pointer',
+          'py-3 px-3', // Единый паддинг
+          error
+            ? 'border-red-500 focus-within:ring-2 focus-within:ring-red-200'
+            : 'border-main-green focus-within:ring-2 focus-within:ring-main-green/30'
+        )}
+        onClick={() => setIsOpen((prev) => !prev)}
       >
         {searchable ? (
-          <div className='flex items-center w-full'>
-            <DropdownSearch />
+          <div className='flex items-center gap-2 w-full overflow-hidden'>
+            {/* Иконка поиска (опционально, если она нужна всегда) */}
+            <div className='shrink-0 text-gray-400'>
+              <DropdownSearch />
+            </div>
+
             <input
               type='text'
-              value={inputValue || ''}
-              onKeyDown={(e) => {
-                e.stopPropagation();
-                handleKeyDown(e);
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              onClick={(e) => {
+                e.stopPropagation(); // ВАЖНО: Клик по инпуту не должен закрывать дропдаун
+                setIsOpen(true);
               }}
-              onChange={(e) => handleSearch(e)}
-              placeholder={value ? '' : 'Поиск или выберите'}
-              className='w-full py-3 px-2.5 outline-none'
+              placeholder={value ? '' : 'Выберите значение'}
+              className='w-full outline-none bg-transparent placeholder:text-gray-400'
             />
           </div>
         ) : (
-          <span className='py-3 px-2.5'>{value || 'Выберите значение'}</span>
+          <span className={clsx(!value && 'text-gray-400')}>
+            {value || 'Выберите значение'}
+          </span>
         )}
-        <DropdownArrow
+
+        <div
           className={clsx(
-            'transition duration-200',
-            isOpen ? 'rotate-180' : 'rotate-0'
+            'shrink-0 transition-transform duration-200',
+            isOpen && 'rotate-180'
           )}
-        />
+        >
+          <DropdownArrow />
+        </div>
       </div>
 
-      {/* Hidden input для отправки формы */}
-      {name && <input type='hidden' name={name} value={value ?? ''} />}
+      {/* Ошибка под дропдауном */}
+      {error && (
+        <span className='text-xs text-red-500 animate-fadeIn'>{error}</span>
+      )}
 
-      <ul
-        className={clsx(
-          'absolute w-full top-full z-10 bg-white overflow-y-auto transition-all duration-300',
-          'max-h-0 border-main-green border-0',
-          isOpen && 'max-h-52 border'
-        )}
-      >
-        {filtered.length === 0 && (
-          <li className='py-1.5 px-1 text-light-blue'>Ничего не найдено</li>
-        )}
-        {filtered.map((option, i) => (
-          <li
-            key={option}
-            className={clsx(
-              'py-1.5 px-1 cursor-pointer transition-colors duration-200',
-              i === highlightIndex && 'bg-main-green text-white'
-            )}
-            onMouseEnter={() => setHighlightIndex(i)}
-            onClick={() => handleOptionClick(option)}
-          >
-            {option}
-          </li>
-        ))}
-      </ul>
+      {/* Список опций */}
+      {isOpen && (
+        <ul
+          className={clsx(
+            'absolute top-full left-0 mt-1 w-full max-h-60 overflow-y-auto',
+            'bg-white border border-gray-200 shadow-lg z-50',
+            'animate-in fade-in zoom-in-95 duration-100' // Простая анимация появления
+          )}
+        >
+          {filteredOptions.length === 0 ? (
+            <li className='py-3 px-3 text-gray-400 text-center'>
+              Ничего не найдено
+            </li>
+          ) : (
+            filteredOptions.map((option, index) => (
+              <li
+                key={option}
+                className={clsx(
+                  'py-2.5 px-3 cursor-pointer transition-colors',
+                  value === option
+                    ? 'bg-main-green/10 text-main-green font-medium'
+                    : 'hover:bg-gray-50',
+                  highlightIndex === index && 'bg-gray-100'
+                )}
+                onClick={() => handleSelect(option)}
+              >
+                {option}
+              </li>
+            ))
+          )}
+        </ul>
+      )}
     </div>
   );
 };

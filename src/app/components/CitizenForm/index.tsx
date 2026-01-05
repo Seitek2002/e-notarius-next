@@ -1,6 +1,7 @@
 'use client';
 
-import { FormEvent, useState } from 'react';
+import { Controller, useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 
 import { Checkbox, Input, Radio } from '@/shared/ui/Input';
@@ -18,120 +19,91 @@ const citizenSchema = z.object({
   middleName: z.string().min(1, 'Введите отчество'),
   inn: z
     .string()
-    .min(10, 'ИНН должен состоять из 14 цифр')
+    .min(14, 'ИНН должен состоять из 14 цифр') // Поправил на 14 (было 10 в min)
     .regex(/^\d+$/, 'ИНН должен содержать только цифры'),
-
+  personType: z.enum(['individual', 'legalEntity']), // Добавил enum для радиокнопок
   region: z.string().min(1, 'Выберите область'),
+  foreigner: z.boolean().optional(), // Добавил чекбокс
+  // files пока оставим any, это отдельная тема с FileList
   files: z.any().optional(),
 });
 
+type CitizenFormValues = z.infer<typeof citizenSchema>;
+
 const fields = [
-  {
-    name: 'lastName',
-    label: 'Фамилия',
-    type: 'input',
-  },
-  {
-    name: 'firstName',
-    label: 'Имя',
-    type: 'input',
-  },
-  {
-    name: 'middleName',
-    label: 'Отчество',
-    type: 'input',
-  },
-  {
-    name: 'inn',
-    label: 'ИНН',
-    type: 'input',
-  },
-  {
-    name: 'personType',
-    label: 'Физическое лицо',
-    value: 'individual',
-    type: 'radio',
-  },
-  {
-    name: 'personType',
-    label: 'Юридическое лицо',
-    value: 'legalEntity',
-    type: 'radio',
-  },
-];
+  { name: 'lastName', label: 'Фамилия', type: 'input' },
+  { name: 'firstName', label: 'Имя', type: 'input' },
+  { name: 'middleName', label: 'Отчество', type: 'input' },
+  { name: 'inn', label: 'ИНН', type: 'input' },
+] as const;
 
 const CitizenForm = () => {
-  const [region, setRegion] = useState<string | null>('');
-  const [errors, setErrors] = useState<Record<string, string[]>>({});
+  const {
+    register,
+    handleSubmit,
+    control,
+    formState: { errors, isSubmitting },
+  } = useForm<CitizenFormValues>({
+    resolver: zodResolver(citizenSchema),
+    defaultValues: {
+      personType: 'individual', // Значение по умолчанию для радио
+      foreigner: false,
+      region: '',
+    },
+  });
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-
-    const uploadedFiles = Array.from(formData.keys())
-      .filter((k) => k.startsWith('files['))
-      .map((k) => formData.get(k));
-
-    const rawData = {
-      ...fields.reduce((acc, field) => {
-        acc[field.name] = formData.get(field.name);
-        return acc;
-      }, {} as Record<string, FormDataEntryValue | null>),
-      region,
-      files: uploadedFiles,
-    };
-
-    const res = citizenSchema.safeParse(rawData);
-
-    if (!res.success) {
-      const fieldErrors = res.error.flatten().fieldErrors;
-      setErrors(fieldErrors);
-      return;
-    }
-
-    setErrors({});
-
-    console.log('VALID DATA:', res.data);
+  const onSubmit = (data: CitizenFormValues) => {
+    console.log('VALID DATA SUBMITTED:', data);
+    // Тут будет запрос к API
   };
 
   return (
     <>
       <ApplicationsTable />
       <FilesTable />
-      <form onSubmit={(e) => handleSubmit(e)}>
-        {fields.map((field) => {
-          if (field.type === 'input') {
-            return (
-              <Input
-                key={field.name}
-                label={field.label}
-                name={field.name}
-                error={errors[field.name]?.[0]}
-              />
-            );
-          } else if (field.type === 'radio') {
-            return (
-              <Radio
-                key={field.value}
-                label={field.label}
-                name={field.name}
-                value={field.value}
-              />
-            );
-          }
-        })}
-        <Dropdown
+      <form onSubmit={handleSubmit(onSubmit)}>
+        {fields.map((field) => (
+          <Input
+            key={field.name}
+            label={field.label}
+            error={errors[field.name]?.message}
+            {...register(field.name)}
+          />
+        ))}
+
+        <div className='flex gap-4'>
+          <Radio
+            label='Физическое лицо'
+            value='individual'
+            {...register('personType')}
+          />
+          <Radio
+            label='Юридическое лицо'
+            value='legalEntity'
+            {...register('personType')}
+          />
+        </div>
+
+        <Controller
           name='region'
-          label='Область'
-          value={region}
-          onChange={(newValue: string) => setRegion(newValue)}
-          options={['Чуй', 'Нарын', 'Талас', 'Баткен', 'Джалал-Абад', 'Ош']}
-          searchable
-          required
+          control={control}
+          render={({ field: { onChange, value } }) => (
+            <Dropdown
+              label='Область'
+              options={['Чуй', 'Нарын', 'Талас', 'Баткен', 'Джалал-Абад', 'Ош']}
+              value={value}
+              name='region'
+              onChange={onChange}
+              error={errors.region?.message}
+              searchable
+              required
+            />
+          )}
         />
-        <Checkbox label='Иностранное лицо' name='foreigner' />
+
+        <Checkbox label='Иностранное лицо' {...register('foreigner')} />
         <MultiFileUpload />
-        <Button loading={false}>
+        <Button type="submit" loading={isSubmitting}>
           <span>Подтвердить</span>
           <Arrow />
         </Button>

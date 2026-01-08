@@ -21,13 +21,13 @@ const Header = () => {
       <div className='flex items-center gap-[30px] text-[16px] text-dark-blue'>
         <div className='flex items-center gap-2 font-medium cursor-pointer'>
           <DefaultAvatar />
-          <span>ЧН Абылгазиева Нурмира Нарматовна</span>
+          <span className='hidden lg:block'>ЧН Абылгазиева Нурмира Нарматовна</span>
           <ArrowIcon />
         </div>
         <div className='cursor-pointer'>
           <NotificationIcon />
         </div>
-        <div className='flex items-center cursor-pointer'>
+        <div className='hidden items-center cursor-pointer lg:flex'>
           <span>РУС</span>
           <ArrowIcon />
         </div>
